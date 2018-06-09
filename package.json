@@ -5,7 +5,8 @@
   "main": "./build/Rothermel.js",
   "scripts": {
     "build": "babel src --presets babel-preset-env --out-dir build",
-    "test": "jest"
+    "test": "jest",
+    "webpack": "webpack --mode production ./src/Rothermel.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,7 @@
     "behavior",
     "behave",
     "flame",
-    "spead",
+    "spread",
     "ros"
   ],
   "author": "Bruce Schubert",
@@ -31,6 +32,7 @@
     "ajv": "^6.5.0",
     "babel-cli": "^6.26.0",
     "babel-jest": "^23.0.1",
+    "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "jest": "^23.1.0",
     "webpack": "^4.12.0",
