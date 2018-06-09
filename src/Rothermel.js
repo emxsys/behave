@@ -23,3 +23,6 @@
  */
 
 
+export default class Rothermel {
+    
+}
