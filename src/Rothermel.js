@@ -81,28 +81,28 @@ export default class Rothermel {
     return rho_b
   }
 
-//  /**
-//   * Calculates the mean packing ratio for the fuel: beta.
-//   *
-//   * The compactness of the fuel bed is defined by the packing ratio, which is defined as the
-//   * fraction of the fuel array volume that is occupied by the fuel. Rothermel 1972: eq. (74)
-//   *
-//   * @param {Number} rho_b The mean bulk density of the fuel bed [lbs/ft3].
-//   * @param {Number} rho_p The oven-dry fuel-particle density [lbs/ft3].
-//   *
-//   * @return {Number} beta [dimensionless]
-//   */
-//  static meanPackingRatio(rho_b, rho_p) {
-//    if (rho_p <= 0) {
-//      throw new RangeError("rho_p must be > 0.");
-//    }
-//    let beta = rho_b / rho_p;
-//    if ((beta > 0.12) || (beta < 0)) {
-//      throw new RangeError("Mean packing ration [beta] out of limits [0,0.12]: " + beta);
-//    }
-//    return beta;
-//  }
-//
+  /**
+   * Calculates the mean packing ratio for the fuel: beta.
+   *
+   * The compactness of the fuel bed is defined by the packing ratio, which is defined as the
+   * fraction of the fuel array volume that is occupied by the fuel. Rothermel 1972: eq. (74)
+   *
+   * @param {Number} rho_b The mean bulk density of the fuel bed [lbs/ft3].
+   * @param {Number} rho_p The oven-dry fuel-particle density [lbs/ft3].
+   *
+   * @return {Number} beta [dimensionless]
+   */
+  static meanPackingRatio(rho_b, rho_p) {
+    if (rho_p <= 0) {
+      throw new RangeError("rho_p must be > 0.");
+    }
+    let beta = rho_b / rho_p;
+    if (beta > 0.12 || beta < 0) {
+      throw new RangeError("Mean packing ratio [beta] out of limits [0,0.12]: " + beta);
+    }
+    return beta;
+  }
+
 //  /**
 //   * Computes the optimal packing ratio for the fuel: beta_opt.
 //   *
