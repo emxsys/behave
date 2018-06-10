@@ -550,28 +550,29 @@ export default class Rothermel {
     return wndSpd20Ft * Rothermel.midFlameWindAdjustmentFactor(fuelDepth)
   }
 
-//    /**
-//     * Computes the wind speed at the fuel level from 20 foot wind speeds. Used to compute wind
-//     * cooling effect on fuel temperatures.
-//     *
-//     * @param wndSpd20Ft Wind speed 20 feet above the vegetation [MPH]
-//     * @param fuelDepth Vegetation height [feet]
-//     * @return Wind speed at vegetation height
-//     */
-//    static public double calcWindSpeedNearFuel(double wndSpd20Ft, double fuelDepth) {
-//        // Equation #36
-//        // The ratio of windspeed at vegetation height to that at
-//        // 20 feet above the vegitation is given by:
-//        //  U_h' / U_20+h' = 1 / ln((20 + 0.36 * h') / 0.13 * h')
-//        //      where:
-//        //          h' = vegitation height [feet]
-//        if (fuelDepth == 0) {
-//            fuelDepth = 0.1;
-//        }
-//        double U_h = (1.0 / log((20 + 0.36 * fuelDepth) / (0.13 * fuelDepth))) * wndSpd20Ft;
-//        return U_h;
-//    }
-//
+  /**
+   * Computes the wind speed at the fuel level from 20 foot wind speeds. Used to compute wind
+   * cooling effect on fuel temperatures.
+   *
+   * @param {Number} wndSpd20Ft Wind speed 20 feet above the vegetation [MPH]
+   * @param {Number} fuelDepth Vegetation height [feet]
+   * 
+   * @return {Number} Wind speed at vegetation height
+   */
+  static calcWindSpeedNearFuel(wndSpd20Ft, fuelDepth) {
+    // Equation #36
+    // The ratio of windspeed at vegetation height to that at
+    // 20 feet above the vegitation is given by:
+    //  U_h' / U_20+h' = 1 / ln((20 + 0.36 * h') / 0.13 * h')
+    //      where:
+    //          h' = vegitation height [feet]
+    if (fuelDepth == 0) {
+      fuelDepth = 0.1
+    }
+    const U_h = (1.0 / Math.log((20 + 0.36 * fuelDepth) / (0.13 * fuelDepth))) * wndSpd20Ft
+    return U_h
+  }
+
 //    /**
 //     * Calculates the fire ellipse eccentricity from the effective wind speed.
 //     *

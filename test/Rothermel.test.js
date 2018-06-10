@@ -322,3 +322,14 @@ describe('calcWindSpeedMidFlame', () => {
     expect(Rothermel.calcWindSpeedMidFlame(wndSpd20Ft, fuelDepth)).toBe(waf);
   });
 });
+
+
+describe('calcWindSpeedNearFuel', () => {
+  const wndSpd20Ft = 10;
+  const fuelDepth = 7;
+  const U_h = 3.1165128757271803;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcWindSpeedNearFuel(wndSpd20Ft, fuelDepth)).toBe(U_h);
+  });
+});
