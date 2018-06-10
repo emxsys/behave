@@ -343,3 +343,15 @@ describe('eccentricity', () => {
     expect(Rothermel.eccentricity(effectiveWind)).toBe(eccentricity);
   });
 });
+
+
+describe('calcFuelTemp', () => {
+  const I = 3;
+  const T_a = 67; // F
+  const U_h = 7; // mph
+  const T_f = 89.90076335877862;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcFuelTemp(I, T_a, U_h) ).toBe(T_f);
+  });
+});

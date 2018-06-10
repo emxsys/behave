@@ -602,36 +602,36 @@ export default class Rothermel {
     return eccentricity
   }
 
-//    /**
-//     * Compute difference between fuel temperature and the air temperature due to solar heating and
-//     * wind cooling effects.
-//     *
-//     * Rothermel 1986: eq. (1)
-//     *
-//     * @param I radiation intensity [cal/c2 * min]
-//     * @param T_a temperature of air [fahrenheit]
-//     * @param U_h wind velocity at fuel level [mph]
-//     *
-//     * @return T_f temperature of fuel [fahrenheit]
-//     */
-//    static public double calcFuelTemp(double I, double T_a, double U_h) {
-//        // Rothermel et al, 1986, page 9
-//        // Equation #1
-//        // The difference in temperature between the air and fuel is assumed
-//        // to be directly proportional to the incident radiation intensity, I,
-//        // and inversely proportional to the wind velocity, U, and two constants
-//        // attributed to fuel conditions:
-//        //  T_f - T_a == I / (0.015 * U_h + 0.026)
-//        // where:
-//        //  T_f  =   temperature of fuel [farenheit]
-//        //  T_a  =   temperature of air  [farenheit]
-//        //  I    =   radiation intencity [cal/c2 * min]
-//        //  U_h  =   wind velocity at fuel level [mph]
-//
-//        double T_f = (I / (0.015 * U_h + 0.026)) + T_a;
-//        return T_f;
-//    }
-//
+  /**
+   * Compute difference between fuel temperature and the air temperature due to solar heating and
+   * wind cooling effects.
+   *
+   * Rothermel 1986: eq. (1)
+   *
+   * @param {Number} I radiation intensity [cal/c2 * min]
+   * @param {Number} T_a temperature of air [fahrenheit]
+   * @param {Number} U_h wind velocity at fuel level [mph]
+   *
+   * @return {Number} T_f temperature of fuel [fahrenheit]
+   */
+  static calcFuelTemp(I, T_a, U_h) {
+    // Rothermel et al, 1986, page 9
+    // Equation #1
+    // The difference in temperature between the air and fuel is assumed
+    // to be directly proportional to the incident radiation intensity, I,
+    // and inversely proportional to the wind velocity, U, and two constants
+    // attributed to fuel conditions:
+    //  T_f - T_a == I / (0.015 * U_h + 0.026)
+    // where:
+    //  T_f  =   temperature of fuel [farenheit]
+    //  T_a  =   temperature of air  [farenheit]
+    //  I    =   radiation intencity [cal/c2 * min]
+    //  U_h  =   wind velocity at fuel level [mph]
+
+    const T_f = (I / (0.015 * U_h + 0.026)) + T_a;
+    return T_f;
+  }
+
 //    /**
 //     * Compute the relative humidity for the air immediately adjacent to the fuel.
 //     *
