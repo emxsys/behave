@@ -106,3 +106,16 @@ describe('reactionVelocity', () => {
     expect(Rothermel.reactionVelocity(sigma, beta_ratio)).toBe(gamma)
   })
 })
+
+
+describe('reactionIntensity', () => {
+    const gamma = 2 
+    const heat = 3
+    const eta_M = 4
+    const eta_s = 5
+    const I_r = gamma * heat * eta_M * eta_s
+
+  it('algorithm has not changed', () => {
+    expect(Rothermel.reactionIntensity(gamma, heat, eta_M, eta_s)).toBe(I_r)
+  })
+})

@@ -169,26 +169,26 @@ export default class Rothermel {
     return gamma
   }
 
-//    /**
-//     * Calculates the reaction intensity: I_r.
-//     *
-//     * The rate of heat release, per unit area of the flaming fire front, expressed as heat
-//     * energy/area/time, such as Btu/square foot/minute, or Kcal/square meter/second.
-//     *
-//     * Rothermel 1972: eq. (58), (59) thru (60)
-//     *
-//     * @param gamma The potential reaction velocity.
-//     * @param heat The low heat content [Btu/lb]
-//     * @param eta_M The moisture damping coefficient.
-//     * @param eta_s The mineral damping coefficient.
-//     *
-//     * @return I_r [BTU/ft2/min].
-//     */
-//    public static double reactionIntensity(double gamma, double heat, double eta_M, double eta_s) {
-//        double I_r = gamma * heat * eta_M * eta_s;
-//        return I_r;
-//    }
-//
+  /**
+   * Calculates the reaction intensity: I_r.
+   *
+   * The rate of heat release, per unit area of the flaming fire front, expressed as heat
+   * energy/area/time, such as Btu/square foot/minute, or Kcal/square meter/second.
+   *
+   * Rothermel 1972: eq. (58), (59) thru (60)
+   *
+   * @param {Number} gamma The potential reaction velocity.
+   * @param {Number} heat The low heat content [Btu/lb]
+   * @param {Number} eta_M The moisture damping coefficient.
+   * @param {Number} eta_s The mineral damping coefficient.
+   *
+   * @return {Number} I_r [BTU/ft2/min].
+   */
+  static reactionIntensity(gamma, heat, eta_M, eta_s) {
+    const I_r = gamma * heat * eta_M * eta_s;
+    return I_r;
+  }
+
 //    /**
 //     * Calculates the flame residence time: tau.
 //     *
