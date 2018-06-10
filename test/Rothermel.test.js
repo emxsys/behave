@@ -291,3 +291,13 @@ describe('firelineIntensity', () => {
     expect(Rothermel.firelineIntensity(flameZoneDepth, reactionIntensity)).toBe(I);
   });
 });
+
+
+describe('flameLength', () => {
+  const firelineIntensity = 100;
+  const L = 3.74293696996202;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.flameLength(firelineIntensity)).toBe(L);
+  });
+});

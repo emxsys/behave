@@ -505,20 +505,20 @@ export default class Rothermel {
     return I
   }
 
-//    /**
-//     * Calculates flame length: L.
-//     *
-//     * Albini 1976: eq. (17) pg. 86
-//     *
-//     * @param firelineIntensity Byram's fireline intensity (I) [Btu/ft/s].
-//     *
-//     * @return L [ft]
-//     */
-//    public static double flameLength(double firelineIntensity) {
-//        double L = 0.45 * pow(firelineIntensity, 0.46);
-//        return L;
-//    }
-//
+  /**
+   * Calculates flame length: L.
+   *
+   * Albini 1976: eq. (17) pg. 86
+   *
+   * @param {Number} firelineIntensity Byram's fireline intensity (I) [Btu/ft/s].
+   *
+   * @return {Number} L [ft]
+   */
+  static flameLength(firelineIntensity) {
+    const L = 0.45 * Math.pow(firelineIntensity, 0.46)
+    return L;
+  }
+
 //    /**
 //     * Calculates the wind adjustment factor for scaling wind speed from 20-ft to midflame height.
 //     *
