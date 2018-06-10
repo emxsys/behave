@@ -231,3 +231,15 @@ describe('slopeFactor', () => {
     expect(Rothermel.slopeFactor(slopeDegrees, beta)).toBe(phi_s);
   });
 });
+
+
+describe('effectiveWindSpeed', () => {
+  const phiEw = 10;
+  const beta_ratio = 0.6;
+  const sigma = 0.7;
+  const efw = 5.58851070023703; //[ft/min]
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.effectiveWindSpeed(phiEw, beta_ratio, sigma)).toBe(efw);
+  });
+});

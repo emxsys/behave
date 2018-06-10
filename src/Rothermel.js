@@ -391,42 +391,44 @@ export default class Rothermel {
     return phi_s
   }
 
-//    /**
-//     * Calculates the effective wind speed from the combined wind and slope factors: efw.
-//     *
-//     * Rothermel 1972: eq. (87)
-//     *
-//     * @param phiEw The combined wind and slope factors [phiW + phiS].
-//     * @param beta_ratio beta/beta_opt.
-//     * @param sigma The characteristic SAV ratio [ft2/ft3].
-//     * @return efw [ft/min]
-//     */
-//    public static double effectiveWindSpeed(double phiEw, double beta_ratio, double sigma) {
-//        double C = windParameterC(sigma);
-//        double B = windParameterB(sigma);
-//        double E = windParameterE(sigma);
-//        double efw = effectiveWindSpeed(phiEw, C, B, E, beta_ratio);
-//        return efw;
-//    }
-//
-//    /**
-//     * Calculates the effective wind speed from the combined wind and slope factors: efw.
-//     *
-//     * Rothermel 1972: eq. (87)
-//     *
-//     * @param phiEw The combined wind and slope factors [phiW + phiS].
-//     * @param C Result from Rothermel 1972: eq. (48).
-//     * @param B Result from Rothermel 1972: eq. (49).
-//     * @param E Result from Rothermel 1972: eq. (50).
-//     * @param beta_ratio
-//     * @return efw [ft/min]
-//     */
-//    public static double effectiveWindSpeed(double phiEw, double C, double B, double E, double beta_ratio) {
-//        // Effective windspeed: actually this is only the inverse function of phi_w
-//        double efw = (pow(phiEw / (C * pow(beta_ratio, -E)), 1 / B));
-//        return efw;
-//    }
-//
+  /**
+   * Calculates the effective wind speed from the combined wind and slope factors: efw.
+   *
+   * Rothermel 1972: eq. (87)
+   *
+   * @param {NUmber} phiEw The combined wind and slope factors [phiW + phiS].
+   * @param {NUmber} beta_ratio beta/beta_opt.
+   * @param {NUmber} sigma The characteristic SAV ratio [ft2/ft3].
+   * 
+   * @return {NUmber} efw [ft/min]
+   */
+  static effectiveWindSpeed(phiEw, beta_ratio, sigma) {
+    const C = Rothermel.windParameterC(sigma)
+    const B = Rothermel.windParameterB(sigma)
+    const E = Rothermel.windParameterE(sigma)
+    const efw = Rothermel.effectiveWindSpeed2(phiEw, C, B, E, beta_ratio)
+    return efw
+  }
+
+  /**
+   * Calculates the effective wind speed from the combined wind and slope factors: efw.
+   *
+   * Rothermel 1972: eq. (87)
+   *
+   * @param {NUmber} phiEw The combined wind and slope factors [phiW + phiS].
+   * @param {NUmber} C Result from Rothermel 1972: eq. (48).
+   * @param {NUmber} B Result from Rothermel 1972: eq. (49).
+   * @param {NUmber} E Result from Rothermel 1972: eq. (50).
+   * @param {NUmber} beta_ratio
+   * 
+   * @return {NUmber} efw [ft/min]
+   */
+  static effectiveWindSpeed2(phiEw, C, B, E, beta_ratio) {
+    // Effective windspeed: actually this is only the inverse function of phi_w
+    const efw = (Math.pow(phiEw / (C * Math.pow(beta_ratio, -E)), 1 / B))
+    return efw
+  }
+
 //    /**
 //     * Calculates the rate of spread with wind and/or slope: ros.
 //     *
