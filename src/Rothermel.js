@@ -270,31 +270,32 @@ export default class Rothermel {
     return Q_ig
   }
 
-//    /**
-//     * Calculates the heat sink term: hsk.
-//     *
-//     * Rothermel 1972: eq. (77).
-//     *
-//     * @param preignitionHeat An array of heat of preignition values for individual particles
-//     * (Q_ig).
-//     * @param effectiveHeating An array of effective heating number values for individual particles
-//     * (epsilon).
-//     * @param sw An array of (sv * w0) weighting values for individual fuel particles (sw).
-//     * @param density The mean bulk density for the fuel complex (rho_b).
-//     *
-//     * @return hsk [Btu/ft3]
-//     */
-//    public static double heatSink(double[] preignitionHeat, double[] effectiveHeating, double[] sw, double density) {
-//        double Qig_t = 0;   // sum[i=1,n][Qig_i]
-//        double sw_t = 0;    // sum[i=1,n][sw_i]
-//        for (int i = 0; i < sw.length; i++) {
-//            Qig_t += preignitionHeat[i] * effectiveHeating[i] * sw[i];
-//            sw_t += sw[i];
-//        }
-//        double hsk = density * (Qig_t / sw_t);
-//        return hsk;
-//    }
-//
+  /**
+   * Calculates the heat sink term: hsk.
+   *
+   * Rothermel 1972: eq. (77).
+   *
+   * @param {Number[]} preignitionHeat An array of heat of preignition values for individual particles
+   * (Q_ig).
+   * @param {Number[]} effectiveHeating An array of effective heating number values for individual particles
+   * (epsilon).
+   * @param {Number[]} sw An array of (sv * w0) weighting values for individual fuel particles (sw).
+   * @param {Number} density The mean bulk density for the fuel complex (rho_b).
+   *
+   * @return {NUmber} hsk [Btu/ft3]
+   */
+  static  heatSink(preignitionHeat, effectiveHeating, sw, density) {
+    let Qig_t = 0   // sum[i=1,n][Qig_i]
+    let sw_t = 0    // sum[i=1,n][sw_i]
+    const len = sw.length
+    for (let i = 0; i < sw.length; i++) {
+      Qig_t += preignitionHeat[i] * effectiveHeating[i] * sw[i];
+      sw_t += sw[i];
+    }
+    const hsk = density * (Qig_t / sw_t);
+    return hsk;
+  }
+
 //    /**
 //     * Calculates the wind factor: phi_w.
 //     *

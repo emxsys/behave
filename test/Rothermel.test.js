@@ -171,3 +171,16 @@ describe('heatOfPreignition', () => {
     expect(Rothermel.heatOfPreignition(Mf)).toBe(Q_ig)
   })
 })
+
+
+describe('heatSink', () => {
+  const preignitionHeat = [2]
+  const effectiveHeating = [3]
+  const sw = [4]
+  const density = 5
+  const hsk = density * ((preignitionHeat[0] * effectiveHeating[0] * sw[0]) / sw[0])
+
+  it('algorithm has not changed', () => {
+    expect(Rothermel.heatSink(preignitionHeat, effectiveHeating, sw, density)).toBe(hsk)
+  })
+})
