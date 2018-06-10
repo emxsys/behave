@@ -95,3 +95,14 @@ describe('characteristicSAV', () => {
     expect(Rothermel.characteristicSAV(sv, w0)).toBe(sigma)
   })
 })
+
+
+describe('reactionVelocity', () => {
+    const sigma = 2 
+    const beta_ratio = 3
+    const gamma = 4.702292202212657e-33
+
+  it('algorithm has not changed', () => {
+    expect(Rothermel.reactionVelocity(sigma, beta_ratio)).toBe(gamma)
+  })
+})
