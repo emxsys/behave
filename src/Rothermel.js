@@ -218,27 +218,27 @@ export default class Rothermel {
     return hpa
   }
 
-//    /**
-//     * Gets the propagating flux ratio: xi.
-//     *
-//     * The no-wind propagating flux ratio is a function of the mean packing ratio (beta) and the
-//     * characteristic SAV ratio (sigma).
-//     *
-//     * Rothermel 1972: eq. (42)(76)
-//     *
-//     * @param sigma The characteristic SAV ratio [ft2/ft3].
-//     * @param beta The mean packing ratio [-]
-//     *
-//     * @return xi
-//     */
-//    public static double propagatingFluxRatio(double sigma, double beta) {
-//        if (sigma <= 0) {
-//            throw new IllegalArgumentException("sigma must be > 0.");
-//        }
-//        double xi = exp((0.792 + 0.681 * sqrt(sigma)) * (beta + 0.1)) / (192 + 0.2595 * sigma);
-//        return xi;
-//    }
-//
+  /**
+   * Gets the propagating flux ratio: xi.
+   *
+   * The no-wind propagating flux ratio is a function of the mean packing ratio (beta) and the
+   * characteristic SAV ratio (sigma).
+   *
+   * Rothermel 1972: eq. (42)(76)
+   *
+   * @param {Number} sigma The characteristic SAV ratio [ft2/ft3].
+   * @param {Number} beta The mean packing ratio [-]
+   *
+   * @return {Number} xi
+   */
+  static propagatingFluxRatio(sigma, beta) {
+    if (sigma <= 0) {
+      throw new RangeError("sigma must be > 0.")
+    }
+    const xi = Math.exp((0.792 + 0.681 * Math.sqrt(sigma)) * (beta + 0.1)) / (192 + 0.2595 * sigma)
+    return xi;
+  }
+
 //    /**
 //     * Calculates the effective heating number: epsilon.
 //     *

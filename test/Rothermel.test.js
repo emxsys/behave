@@ -140,3 +140,14 @@ describe('heatRelease', () => {
     expect(Rothermel.heatRelease(I_r, tau)).toBe(hpa)
   })
 })
+
+
+describe('propagatingFluxRatio', () => {
+    const sigma = 2 
+    const beta = 3
+    const xi = Math.exp((0.792 + 0.681 * Math.sqrt(sigma)) * (beta + 0.1)) / (192 + 0.2595 * sigma)
+
+  it('algorithm has not changed', () => {
+    expect(Rothermel.propagatingFluxRatio(sigma, beta)).toBe(xi)
+  })
+})
