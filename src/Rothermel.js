@@ -239,23 +239,23 @@ export default class Rothermel {
     return xi;
   }
 
-//    /**
-//     * Calculates the effective heating number: epsilon.
-//     *
-//     * Rothermel 1972: eq. (14) and (77).
-//     *
-//     * @param sv The SAV ratio value for an individual particle [ft2/ft3].
-//     *
-//     * @return epsilon.
-//     */
-//    public static double effectiveHeatingNumber(double sv) {
-//        double epsilon = 0;
-//        if (sv > 0) {
-//            epsilon = exp(-138. / sv);
-//        }
-//        return epsilon;
-//    }
-//
+  /**
+   * Calculates the effective heating number: epsilon.
+   *
+   * Rothermel 1972: eq. (14) and (77).
+   *
+   * @param {Number} sv The SAV ratio value for an individual particle [ft2/ft3].
+   *
+   * @return {Number} epsilon.
+   */
+  static  effectiveHeatingNumber(sv) {
+    let epsilon = 0;
+    if (sv > 0) {
+      epsilon = Math.exp(-138 / sv);
+    }
+    return epsilon;
+  }
+
 //    /**
 //     * Calculates the heat of preignition: Q_ig.
 //     *
