@@ -796,127 +796,87 @@ export default class Rothermel {
     return (I > 0) ? I : 0
   }
 
-//    /*
-//     * Original algorithm with East Azimuth (e.g., East = 0 degrees, South = 90 degrees).
-//     * @deprecated
-//     */
-//    @Deprecated
-//    static double calcIrradianceOnASlopeWithEastAz(double alpha, double beta, double A, double Z, double I_a) {
-//        // Rothermel et al, 1986, page 11
-//        // Equation #9, 10 and 11
-//        //  I = Ia * sin zeta
-//        // where:
-//        //  alpha   = slope angle from horizontal at slope azimuth
-//        //  psi     = slope angle at solar azimuth Z
-//        //      zeta replaces A in equation #3, the solar angle to the slope in
-//        //      the plane normal to the slope
-//        //  sin zeta = sin(A - psi) * cos(alpha) / cos(psi)
-//        //  tan psi  = tan alpha * sin(z - beta)
-//        // where:
-//        //      (A - psi) is the solar angle to the slope in local vertical plane
-//        //      and psi is the slope angle at the solar azimuth, z,
-//        //
-//
-//        // Precondition: Sun above the horizon
-//        if (A <= 0) {
-//            return 0;
-//        }
-//
-//        double tanPsi = tan(alpha) * sin(Z - beta);
-//        double psi = atan(tanPsi);
-//        double sinZeta = sin(A - psi) * cos(alpha) / cos(psi);
-//
-//        // I is the incident radiation intensity
-//        double I = I_a * sinZeta;
-//
-//        // Post condition: I >= 0
-//        return (I > 0) ? I : 0;
-//    }
-//
-//    /**
-//     * Computes the Canadian Standard Daily Fine Fuel Moisture Code (FFMC) and converts it to a
-//     * percentage. Calculates the fuel moisture percentage for early afternoon from noon-time
-//     * weather conditions or forecasts. <br/>
-//     *
-//     * Rothermel, et al, "Modeling moisture content of fine dead wildland fuels: input to the BEHAVE
-//     * fire prediction system." Research Paper INT-359. 1986. Equations located on page 47. <br/>
-//     *
-//     * Note: FFMC: Low = 0 - 72; Moderate = 73 - 77; High = 78 - 82; Extreme > 82
-//     *
-//     * @param m_0 initial fuel moisture at noon [percent]
-//     * @param T_f air temp immediately adjacent to fuel [Fahrenheit]
-//     * @param H_f relative humidity immediately adjacent to fuel [percent]
-//     * @param W 20 foot wind speed [MPH]
-//     * @param R rainfall amount [inches]
-//     * @return Fuel moisture percent derived from computed FFMC code [percent]
-//     */
-//    static public double calcCanadianStandardDailyFineFuelMoisture(double m_0, double T_f,
-//                                                                   double H_f, double W, double R) {
-//
-//        // f_0 - initial moisture converted to a FFMC
-//        double f_0 = 101d - m_0;
-//
-//        // Equation #1 - adust the initial fuel moisture code (f0) for rain
-//        double f_R;     // f_0 modified for rain
-//        // if rain > 0.02"
-//        if (R > 0.02) {
-//            double R_A = min(R, 1.5);
-//            double F;
-//            if (R_A <= 0.055) { // [inches]
-//                F = -56.0 - 55.6 * log(R_A + 0.04);
-//            } else if (R_A <= 0.225) { // [inches]
-//                F = -1.0 - 18.2 * log(R_A - 0.04);
-//            } else {
-//                F = 14 - 8.25 * log(R_A - 0.075);
-//            }
-//            f_R = max(0, (F * f_0 / 100) + 1 - 8.73 * exp(-0.1117 * f_0));
-//        } else {
-//            // little or no rain
-//            f_R = f_0;
-//        }
-//
-//        // Equation #2
-//        // m_R - initial fuel moisture [percent] adjusted for rain
-//        double m_R = 101 - f_R;
-//
-//        // Equation #3 - equilibrium drying curve
-//        double E_d = (0.942 * pow(H_f, 0.679)) + 11 * exp((H_f / 10) - 10);
-//
-//        // Equation #4 - equilibrium wetting curve
-//        double E_w = (0.597 * pow(H_f, 0.768)) + 14 * exp((H_f / 8) - 12.5);
-//
-//        // m - fine fuel moisture adjusted for humidity and wind
-//        double m;
-//        if (MathUtil.nearlyEquals(m_R, E_d)) {
-//            m = m_R;
-//        } // Wetting
-//        else if (m_R < E_d) {
-//            // fuel moisture is below the drying curve so a wetting trend is in effect
-//            // Equation #5
-//            m = E_w + (m_R - E_w) / 1.9953;   //-- original
-//            //m = E_W + (E_W - m_R) / 1.9953;     // corrected based on Anderson 2009 87-10 
-//        } // Drying
-//        else {
-//            // fuel moisture is above the drying curve so a drying trend is in effect
-//
-//            // Here we constrain 20' wind to between 1 and 14 mph
-//            W = min(max(1.0, W), 14.0);
-//            // Equations #6 and #7
-//            double x = 0.424 * (1 - pow(H_f / 100, 1.7)) + 0.088 * pow(W, 0.5) * (1 - pow(H_f / 100, 8));
-//            m = E_d + (m_R - E_d) / pow(10, x);
-//        }
-//        // compute fine fuel moisture delta for temperature
-//        double delta = 0;
-//        if (f_0 < 99.0) {
-//            delta = max(-16.0, (T_f - 70d) * (0.63 - 0.0065 * f_R));
-//        }
-//        // final FFMC code constrained to between 0 and 99
-//        double f = max(0, min(99d, 101d - m + delta));
-//
-//        // FFMC code converted to fuel moisture percentage
-//        return 101d - f;
-//    }
-//
+  /**
+   * Computes the Canadian Standard Daily Fine Fuel Moisture Code (FFMC) and converts it to a
+   * percentage. Calculates the fuel moisture percentage for early afternoon from noon-time
+   * weather conditions or forecasts. <br/>
+   *
+   * Rothermel, et al, "Modeling moisture content of fine dead wildland fuels: input to the BEHAVE
+   * fire prediction system." Research Paper INT-359. 1986. Equations located on page 47. <br/>
+   *
+   * Note: FFMC: Low = 0 - 72; Moderate = 73 - 77; High = 78 - 82; Extreme > 82
+   *
+   * @param {Number} m_0 initial fuel moisture at noon [percent]
+   * @param {Number} T_f air temp immediately adjacent to fuel [Fahrenheit]
+   * @param {Number} H_f relative humidity immediately adjacent to fuel [percent]
+   * @param {Number} W 20 foot wind speed [MPH]
+   * @param {Number} R rainfall amount [inches]
+   * 
+   * @return {Number} Fuel moisture percent derived from computed FFMC code [percent]
+   */
+  static calcCanadianStandardDailyFineFuelMoisture(m_0, T_f, H_f, W, R) {
+
+    // f_0 - initial moisture converted to a FFMC
+    const f_0 = 101 - m_0
+
+    // Equation #1 - adust the initial fuel moisture code (f0) for rain
+    let f_R = 0     // f_0 modified for rain
+    // if rain > 0.02"
+    if (R > 0.02) {
+      const R_A = Math.min(R, 1.5)
+      let F = 0
+      if (R_A <= 0.055) { // [inches]
+        F = -56.0 - 55.6 * Math.log(R_A + 0.04)
+      } else if (R_A <= 0.225) { // [inches]
+        F = -1.0 - 18.2 * Math.log(R_A - 0.04)
+      } else {
+        F = 14 - 8.25 * Math.log(R_A - 0.075)
+      }
+      f_R = Math.max(0, (F * f_0 / 100) + 1 - 8.73 * Math.exp(-0.1117 * f_0))
+    } else {
+      // little or no rain
+      f_R = f_0
+    }
+
+    // Equation #2
+    // m_R - initial fuel moisture [percent] adjusted for rain
+    const m_R = 101 - f_R
+
+    // Equation #3 - equilibrium drying curve
+    const E_d = (0.942 * Math.pow(H_f, 0.679)) + 11 * Math.exp((H_f / 10) - 10);
+
+    // Equation #4 - equilibrium wetting curve
+    const E_w = (0.597 * Math.pow(H_f, 0.768)) + 14 * Math.exp((H_f / 8) - 12.5);
+
+    // m - fine fuel moisture adjusted for humidity and wind
+    let m = 0;
+    if (Math.abs(m_R - E_d) < 0.0001) { // nearly equal
+      m = m_R;
+    } else if (m_R < E_d) {
+      // Wetting: fuel moisture is below the drying curve so a wetting trend is in effect
+      // Equation #5
+      m = E_w + (m_R - E_w) / 1.9953;       //-- original
+      //m = E_W + (E_W - m_R) / 1.9953;     // corrected based on Anderson 2009 87-10 
+    } else { 
+      // Drying: fuel moisture is above the drying curve so a drying trend is in effect
+      // Here we constrain 20' wind to between 1 and 14 mph
+      W = Math.min(Math.max(1.0, W), 14.0);
+      // Equations #6 and #7
+      const x = 0.424 * (1 - Math.pow(H_f / 100, 1.7)) + 0.088 * Math.pow(W, 0.5) * (1 - Math.pow(H_f / 100, 8));
+      m = E_d + (m_R - E_d) / Math.pow(10, x);
+    }
+    // compute fine fuel moisture delta for temperature
+    let delta = 0;
+    if (f_0 < 99.0) {
+      delta = Math.max(-16.0, (T_f - 70) * (0.63 - 0.0065 * f_R));
+    }
+    // final FFMC code constrained to between 0 and 99
+    const f = Math.max(0, Math.min(99, 101 - m + delta));
+
+    // FFMC code converted to fuel moisture percentage
+    return 101 - f;
+  }
+
 //    /**
 //     * Computes the Canadian Hourly Fine Fuel Moisture percentage.
 //     *

@@ -108,7 +108,7 @@ describe('optimalPackingRatio', () => {
   const beta_opt = 3.348 * Math.pow(sigma, -0.8189);
 
   it('algorithm has not changed', () => {
-    expect(Rothermel.optimalPackingRatio(sigma)).toBe(beta_opt);
+    expect(Rothermel.optimalPackingRatio(sigma)).toBeCloseTo(beta_opt,5);
   });
 });
 
@@ -125,12 +125,12 @@ describe('characteristicSAV', () => {
 
 
 describe('reactionVelocity', () => {
-  const sigma = 2;
-  const beta_ratio = 3;
-  const gamma = 4.702292202212657e-33;
+  const sigma = 0.3;      // SAV ft2/ft3
+  const beta_ratio = 1; // packing ratio
+  const gamma = 0.00033194651982916144;
 
   it('algorithm has not changed', () => {
-    expect(Rothermel.reactionVelocity(sigma, beta_ratio)).toBe(gamma);
+    expect(Rothermel.reactionVelocity(sigma, beta_ratio)).toBeCloseTo(gamma, 10);
   });
 });
 
@@ -175,7 +175,7 @@ describe('propagatingFluxRatio', () => {
   const xi = Math.exp((0.792 + 0.681 * Math.sqrt(sigma)) * (beta + 0.1)) / (192 + 0.2595 * sigma);
 
   it('algorithm has not changed', () => {
-    expect(Rothermel.propagatingFluxRatio(sigma, beta)).toBe(xi);
+    expect(Rothermel.propagatingFluxRatio(sigma, beta)).toBeCloseTo(xi, 10);
   });
 });
 
@@ -220,7 +220,7 @@ describe('windFactor', () => {
   const phi_w = 13.551811735940076;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.windFactor(midFlameWindSpd, sigma, beta_ratio)).toBe(13.551811735940076);
+    expect(Rothermel.windFactor(midFlameWindSpd, sigma, beta_ratio)).toBeCloseTo(phi_w, 10);
   });
 });
 
@@ -231,7 +231,7 @@ describe('slopeFactor', () => {
   const phi_s = 7.569829322728009;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.slopeFactor(slopeDegrees, beta)).toBe(phi_s);
+    expect(Rothermel.slopeFactor(slopeDegrees, beta)).toBeCloseTo(phi_s, 10);
   });
 });
 
@@ -243,7 +243,7 @@ describe('effectiveWindSpeed', () => {
   const efw = 5.58851070023703; //[ft/min]
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.effectiveWindSpeed(phiEw, beta_ratio, sigma)).toBe(efw);
+    expect(Rothermel.effectiveWindSpeed(phiEw, beta_ratio, sigma)).toBeCloseTo(efw, 10);
   });
 });
 
@@ -291,7 +291,7 @@ describe('firelineIntensity', () => {
   const I = reactionIntensity * flameZoneDepth / 60;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.firelineIntensity(flameZoneDepth, reactionIntensity)).toBe(I);
+    expect(Rothermel.firelineIntensity(flameZoneDepth, reactionIntensity)).toBeCloseTo(I, 10);
   });
 });
 
@@ -301,7 +301,7 @@ describe('flameLength', () => {
   const L = 3.74293696996202;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.flameLength(firelineIntensity)).toBe(L);
+    expect(Rothermel.flameLength(firelineIntensity)).toBeCloseTo(L, 10);
   });
 });
 
@@ -311,7 +311,7 @@ describe('midFlameWindAdjustmentFactor', () => {
   const waf = 0.5703218562580741;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.midFlameWindAdjustmentFactor(fuelDepth)).toBe(waf);
+    expect(Rothermel.midFlameWindAdjustmentFactor(fuelDepth)).toBeCloseTo(waf, 10);
   });
 });
 
@@ -322,7 +322,7 @@ describe('calcWindSpeedMidFlame', () => {
   const waf = 5.703218562580741;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.calcWindSpeedMidFlame(wndSpd20Ft, fuelDepth)).toBe(waf);
+    expect(Rothermel.calcWindSpeedMidFlame(wndSpd20Ft, fuelDepth)).toBeCloseTo(waf, 10);
   });
 });
 
@@ -333,7 +333,7 @@ describe('calcWindSpeedNearFuel', () => {
   const U_h = 3.1165128757271803;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.calcWindSpeedNearFuel(wndSpd20Ft, fuelDepth)).toBe(U_h);
+    expect(Rothermel.calcWindSpeedNearFuel(wndSpd20Ft, fuelDepth)).toBeCloseTo(U_h, 10);
   });
 });
 
@@ -343,7 +343,7 @@ describe('eccentricity', () => {
   const eccentricity = 0.23342132431186122;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.eccentricity(effectiveWind)).toBe(eccentricity);
+    expect(Rothermel.eccentricity(effectiveWind)).toBeCloseTo(eccentricity, 10);
   });
 });
 
@@ -355,7 +355,7 @@ describe('calcFuelTemp', () => {
   const T_f = 89.90076335877862;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.calcFuelTemp(I, T_a, U_h) ).toBe(T_f);
+    expect(Rothermel.calcFuelTemp(I, T_a, U_h) ).toBeCloseTo(T_f, 10);
   });
 });
 
@@ -367,7 +367,7 @@ describe('calcRelativeHumidityNearFuel', () => {
   const H_f = 24.19202432339955; // %
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.calcRelativeHumidityNearFuel(H_a, T_f, T_a)).toBe(H_f);
+    expect(Rothermel.calcRelativeHumidityNearFuel(H_a, T_f, T_a)).toBeCloseTo(H_f, 10);
   });
 });
 
@@ -377,7 +377,7 @@ describe('calcEarthSunDistanceSqrd', () => {
   const r2 = 1.047651;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.calcEarthSunDistanceSqrd(delta)).toBe(r2);
+    expect(Rothermel.calcEarthSunDistanceSqrd(delta)).toBeCloseTo(r2, 5);
   });
 });
 
@@ -389,7 +389,7 @@ describe('calcSolarIrradianceOnHorzSurface', () => {
   const I = 2.0248349341141676; 
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.calcSolarIrradianceOnHorzSurface(I_a, r2, A)).toBe(I);
+    expect(Rothermel.calcSolarIrradianceOnHorzSurface(I_a, r2, A)).toBeCloseTo(I, 10);
   });
 });
 
@@ -400,7 +400,7 @@ describe('calcOpticalAirMass', () => {
   const M = 1.3522550283652721; 
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.calcOpticalAirMass(A, E)).toBe(M);
+    expect(Rothermel.calcOpticalAirMass(A, E)).toBeCloseTo(M, 10);
   });
 });
 
@@ -412,7 +412,7 @@ describe('calcAttenuatedIrradiance', () => {
   const I_a = 0.99; 
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.calcAttenuatedIrradiance(M, S_c, p) ).toBe(I_a);
+    expect(Rothermel.calcAttenuatedIrradiance(M, S_c, p) ).toBeCloseTo(I_a, 3);
   });
 });
 
@@ -426,6 +426,20 @@ describe('calcIrradianceOnASlope', () => {
   const I = 0.8537487113388367;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.calcIrradianceOnASlope(alpha, beta, A, Z, I_a)).toBe(I);
+    expect(Rothermel.calcIrradianceOnASlope(alpha, beta, A, Z, I_a)).toBeCloseTo(I, 10);
+  });
+});
+
+
+describe('calcCanadianStandardDailyFineFuelMoisture', () => {
+  const m_0 = 20;   // initial moisture at noon
+  const T_f = 67;   // air temp next to fuel
+  const H_f = 50;   // RH next to fuel
+  const W = 10;     // 20ft winds mph
+  const R = 0;      // rainfall
+  const fm = 15.550628477777991;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcCanadianStandardDailyFineFuelMoisture(m_0, T_f, H_f, W, R)).toBeCloseTo(fm, 10);
   });
 });
