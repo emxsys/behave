@@ -129,3 +129,14 @@ describe('flameResidenceTime', () => {
     expect(Rothermel.flameResidenceTime(sigma)).toBe(tau)
   })
 })
+
+
+describe('heatRelease', () => {
+    const I_r = 2 
+    const tau = 3
+    const hpa = I_r * tau
+
+  it('algorithm has not changed', () => {
+    expect(Rothermel.heatRelease(I_r, tau)).toBe(hpa)
+  })
+})

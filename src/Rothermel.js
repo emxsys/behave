@@ -205,19 +205,19 @@ export default class Rothermel {
     return tau
   }
 
-//    /**
-//     * Calculates the heat release per unit area: hpa.
-//     *
-//     * @param I_r The reaction intensity [Btu/ft2/min].
-//     * @param tau The flame residence time [min].
-//     *
-//     * @return hpa [Btu/ft2]
-//     */
-//    public static double heatRelease(double I_r, double tau) {
-//        double hpa = I_r * tau;
-//        return hpa;
-//    }
-//
+  /**
+   * Calculates the heat release per unit area: hpa.
+   *
+   * @param {Number} I_r The reaction intensity [Btu/ft2/min].
+   * @param {Number} tau The flame residence time [min].
+   *
+   * @return {NUmber} hpa [Btu/ft2]
+   */
+  static heatRelease(I_r, tau) {
+    const hpa = I_r * tau
+    return hpa
+  }
+
 //    /**
 //     * Gets the propagating flux ratio: xi.
 //     *
