@@ -519,35 +519,37 @@ export default class Rothermel {
     return L;
   }
 
-//    /**
-//     * Calculates the wind adjustment factor for scaling wind speed from 20-ft to midflame height.
-//     *
-//     * Wind adjustment factor is calculated as an average from the top of the fuel bed to twice the
-//     * fuel bed depth, using Albini and Baughman (1979) equation 9 (page 5).
-//     *
-//     * @param fuelDepth Fuel bed depth (height) [ft].
-//     * @return Wind adjustment factor, waf [0..1]
-//     */
-//    public static double midFlameWindAdjustmentFactor(double fuelDepth) {
-//        double waf = 1.0;
-//        if (fuelDepth > 0) {
-//            // From BehavePlus5, xfblib.cpp by Collin D. Bevins
-//            waf = 1.83 / log((20. + 0.36 * fuelDepth) / (0.13 * fuelDepth));
-//        }
-//        return min(max(waf, 0), 1);
-//    }
-//
-//    /**
-//     * Computes the mid-flame wind speed from 20 foot wind speeds. Used to compute rate of spread.
-//     *
-//     * @param wndSpd20Ft Wind speed 20 feet above the vegetation [MPH]
-//     * @param fuelDepth Vegetation height [feet]
-//     * @return Wind speed at vegetation height
-//     */
-//    public static double calcWindSpeedMidFlame(double wndSpd20Ft, double fuelDepth) {
-//        return wndSpd20Ft * midFlameWindAdjustmentFactor(fuelDepth);
-//    }
-//
+  /**
+   * Calculates the wind adjustment factor for scaling wind speed from 20-ft to midflame height.
+   *
+   * Wind adjustment factor is calculated as an average from the top of the fuel bed to twice the
+   * fuel bed depth, using Albini and Baughman (1979) equation 9 (page 5).
+   *
+   * @param {Number} fuelDepth Fuel bed depth (height) [ft].
+   * 
+   * @return {Number} Wind adjustment factor, waf [0..1]
+   */
+  static midFlameWindAdjustmentFactor(fuelDepth) {
+    let waf = 1.0
+    if (fuelDepth > 0) {
+      // From BehavePlus5, xfblib.cpp by Collin D. Bevins
+      waf = 1.83 / Math.log((20 + 0.36 * fuelDepth) / (0.13 * fuelDepth))
+    }
+    return Math.min(Math.max(waf, 0), 1)
+  }
+
+  /**
+   * Computes the mid-flame wind speed from 20 foot wind speeds. Used to compute rate of spread.
+   *
+   * @param {Number} wndSpd20Ft Wind speed 20 feet above the vegetation [MPH]
+   * @param {Number} fuelDepth Vegetation height [feet]
+   * 
+   * @return {Number} Wind speed at vegetation height
+   */
+  static calcWindSpeedMidFlame(wndSpd20Ft, fuelDepth) {
+    return wndSpd20Ft * Rothermel.midFlameWindAdjustmentFactor(fuelDepth)
+  }
+
 //    /**
 //     * Computes the wind speed at the fuel level from 20 foot wind speeds. Used to compute wind
 //     * cooling effect on fuel temperatures.

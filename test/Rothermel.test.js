@@ -301,3 +301,24 @@ describe('flameLength', () => {
     expect(Rothermel.flameLength(firelineIntensity)).toBe(L);
   });
 });
+
+
+describe('midFlameWindAdjustmentFactor', () => {
+  const fuelDepth = 7;
+  const waf = 0.5703218562580741;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.midFlameWindAdjustmentFactor(fuelDepth)).toBe(waf);
+  });
+});
+
+
+describe('calcWindSpeedMidFlame', () => {
+  const wndSpd20Ft = 10;
+  const fuelDepth = 7;
+  const waf = 5.703218562580741;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcWindSpeedMidFlame(wndSpd20Ft, fuelDepth)).toBe(waf);
+  });
+});
