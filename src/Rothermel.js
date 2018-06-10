@@ -236,7 +236,7 @@ export default class Rothermel {
       throw new RangeError("sigma must be > 0.")
     }
     const xi = Math.exp((0.792 + 0.681 * Math.sqrt(sigma)) * (beta + 0.1)) / (192 + 0.2595 * sigma)
-    return xi;
+    return xi
   }
 
   /**
@@ -249,27 +249,27 @@ export default class Rothermel {
    * @return {Number} epsilon.
    */
   static  effectiveHeatingNumber(sv) {
-    let epsilon = 0;
+    let epsilon = 0
     if (sv > 0) {
-      epsilon = Math.exp(-138 / sv);
+      epsilon = Math.exp(-138 / sv)
     }
-    return epsilon;
+    return epsilon
   }
 
-//    /**
-//     * Calculates the heat of preignition: Q_ig.
-//     *
-//     * Rothermel 1972: eq. (12) and (78).
-//     *
-//     * @param Mf The fuel moisture value for an individual fuel particle [%].
-//     *
-//     * @return Q_ig.
-//     */
-//    public static double heatOfPreignition(double Mf) {
-//        double Q_ig = 250 + 1116 * (Mf * 0.01); // Mf = [fraction]
-//        return Q_ig;
-//    }
-//
+  /**
+   * Calculates the heat of preignition: Q_ig.
+   *
+   * Rothermel 1972: eq. (12) and (78).
+   *
+   * @param {Number} Mf The fuel moisture value for an individual fuel particle [%].
+   *
+   * @return {Number} Q_ig.
+   */
+  static  heatOfPreignition(Mf) {
+    const Q_ig = 250 + 1116 * (Mf * 0.01) // Mf = [fraction]
+    return Q_ig
+  }
+
 //    /**
 //     * Calculates the heat sink term: hsk.
 //     *
