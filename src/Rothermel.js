@@ -746,57 +746,56 @@ export default class Rothermel {
     return I_a;
   }
 
-//    /**
-//     * Computes the irradiance on a slope (neglecting the small variation in r).
-//     *
-//     * Rothermel 1986, eq. (9),(10) and (11), adjusted for Z relative to North instead of East
-//     *
-//     * @param alpha slope angle from horizontal at slope azimuth [radians]
-//     * @param beta aspect of the slope [radians]
-//     * @param A solar altitude (elevation) angle [radians]
-//     * @param Z solar azimuth angle (true) [radians]
-//     * @param I_a attenuated irradiance [cal/cm2*min]
-//     * @return incident radiation intensity [cal/cm2*min]
-//     */
-//    static public double calcIrradianceOnASlope(double alpha, double beta,
-//                                                double A, double Z,
-//                                                double I_a) {
-//        // Rothermel et al, 1986, page 11
-//        // Equation #9, 10 and 11
-//        //  I = Ia * sin zeta
-//        // where:
-//        //  alpha   = slope angle from horizontal at slope azimuth
-//        //  psi     = slope angle at solar azimuth Z
-//        //      zeta replaces A in equation #3, the solar angle to the slope in
-//        //      the plane normal to the slope
-//        //  sin zeta = sin(A - psi) * cos(alpha) / cos(psi)
-//        //  tan psi  = tan alpha * sin(z - beta)
-//        // where:
-//        //      (A - psi) is the solar angle to the slope in local vertical plane
-//        //      and psi is the slope angle at the solar azimuth, z,
-//        //
-//
-//        // Precondition: Sun above the horizon
-//        if (A <= 0) {
-//            return 0;
-//        }
-//        // Precondition: Must have sunlight (not total shade)
-//        if (I_a <= 0) {
-//            return 0;
-//        }
-//
-//        // Adjusted original algorithm from East azimuth to North azimuth with 1/2 PI.
-//        double tanPsi = tan(alpha) * sin(Z - beta - HALF_PI);
-//        double psi = atan(tanPsi);
-//        double sinZeta = sin(A - psi) * cos(alpha) / cos(psi);
-//
-//        // I is the incident radiation intensity
-//        double I = I_a * sinZeta;
-//
-//        // Post condition: I >= 0
-//        return (I > 0) ? I : 0;
-//    }
-//
+  /**
+   * Computes the irradiance on a slope (neglecting the small variation in r).
+   *
+   * Rothermel 1986, eq. (9),(10) and (11), adjusted for Z relative to North instead of East
+   *
+   * @param {Number} alpha slope angle from horizontal at slope azimuth [radians]
+   * @param {Number} beta aspect of the slope [radians]
+   * @param {Number} A solar altitude (elevation) angle [radians]
+   * @param {Number} Z solar azimuth angle (true) [radians]
+   * @param {Number} I_a attenuated irradiance [cal/cm2*min]
+   * 
+   * @return {Number} incident radiation intensity [cal/cm2*min]
+   */
+  static calcIrradianceOnASlope(alpha, beta, A, Z, I_a) {
+    // Rothermel et al, 1986, page 11
+    // Equation #9, 10 and 11
+    //  I = Ia * sin zeta
+    // where:
+    //  alpha   = slope angle from horizontal at slope azimuth
+    //  psi     = slope angle at solar azimuth Z
+    //      zeta replaces A in equation #3, the solar angle to the slope in
+    //      the plane normal to the slope
+    //  sin zeta = sin(A - psi) * cos(alpha) / cos(psi)
+    //  tan psi  = tan alpha * sin(z - beta)
+    // where:
+    //      (A - psi) is the solar angle to the slope in local vertical plane
+    //      and psi is the slope angle at the solar azimuth, z,
+    //
+
+    // Precondition: Sun above the horizon
+    if (A <= 0) {
+      return 0
+    }
+    // Precondition: Must have sunlight (not total shade)
+    if (I_a <= 0) {
+      return 0
+    }
+
+    // Adjusted original algorithm from East azimuth to North azimuth with 1/2 PI.
+    const tanPsi = Math.tan(alpha) * Math.sin(Z - beta - HALF_PI)
+    const psi = Math.atan(tanPsi)
+    const sinZeta = Math.sin(A - psi) * Math.cos(alpha) / Math.cos(psi)
+
+    // I is the incident radiation intensity
+    const I = I_a * sinZeta
+
+    // Post condition: I >= 0
+    return (I > 0) ? I : 0
+  }
+
 //    /*
 //     * Original algorithm with East Azimuth (e.g., East = 0 degrees, South = 90 degrees).
 //     * @deprecated

@@ -415,3 +415,17 @@ describe('calcAttenuatedIrradiance', () => {
     expect(Rothermel.calcAttenuatedIrradiance(M, S_c, p) ).toBe(I_a);
   });
 });
+
+
+describe('calcIrradianceOnASlope', () => {
+  const alpha = 45 * TO_RADIANS;  // slope angle
+  const beta = 135 * TO_RADIANS;  // aspect
+  const A = 60 * TO_RADIANS;      // solar altitude
+  const Z = 180 * TO_RADIANS;     // solar azimuth
+  const I_a = 0.99;               // attenuated irradiance
+  const I = 0.8537487113388367;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcIrradianceOnASlope(alpha, beta, A, Z, I_a)).toBe(I);
+  });
+});
