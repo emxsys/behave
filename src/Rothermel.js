@@ -482,29 +482,29 @@ export default class Rothermel {
    * @return {Number} fzd [ft]
    */
   static flameZoneDepth(rateOfSpread, flameResidenceTime) {
-    const fzd = rateOfSpread * flameResidenceTime;
-    return fzd;
+    const fzd = rateOfSpread * flameResidenceTime
+    return fzd
   }
 
-//    /**
-//     * Calculates Byram's fireline intensity: I.
-//     *
-//     * Byram's intensity, I, is the rate of heat release per unit of fire edge. The reaction
-//     * intensity, I_r, provided by Rothermel's spread model is the rate of energy release per unit
-//     * area in the actively flaming zone.
-//     *
-//     * Albini 1976: eq. (16), pg. 86
-//     *
-//     * @param flameZoneDepth The depth of the actively flaming zone [ft].
-//     * @param reactionIntensity The fuelbed's fire reaction intensity (I_r) [Btu/ft2/min].
-//     *
-//     * @return I [Btu/ft/s]
-//     */
-//    public static double firelineIntensity(double flameZoneDepth, double reactionIntensity) {
-//        double I = reactionIntensity * flameZoneDepth / 60.;
-//        return I;
-//    }
-//
+  /**
+   * Calculates Byram's fireline intensity: I.
+   *
+   * Byram's intensity, I, is the rate of heat release per unit of fire edge. The reaction
+   * intensity, I_r, provided by Rothermel's spread model is the rate of energy release per unit
+   * area in the actively flaming zone.
+   *
+   * Albini 1976: eq. (16), pg. 86
+   *
+   * @param flameZoneDepth The depth of the actively flaming zone [ft].
+   * @param reactionIntensity The fuelbed's fire reaction intensity (I_r) [Btu/ft2/min].
+   *
+   * @return I [Btu/ft/s]
+   */
+  static firelineIntensity(flameZoneDepth, reactionIntensity) {
+    const I = reactionIntensity * flameZoneDepth / 60
+    return I
+  }
+
 //    /**
 //     * Calculates flame length: L.
 //     *

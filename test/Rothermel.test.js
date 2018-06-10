@@ -280,3 +280,14 @@ describe('flameZoneDepth', () => {
     expect(Rothermel.flameZoneDepth(rateOfSpread, flameResidenceTime)).toBe(fzd);
   });
 });
+
+
+describe('firelineIntensity', () => {
+  const reactionIntensity = 3;
+  const flameZoneDepth = 7;
+  const I = reactionIntensity * flameZoneDepth / 60;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.firelineIntensity(flameZoneDepth, reactionIntensity)).toBe(I);
+  });
+});
