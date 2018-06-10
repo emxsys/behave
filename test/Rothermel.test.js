@@ -26,11 +26,14 @@
 
 import Rothermel from '../src/Rothermel'
 
-        describe('Rothermel', () => {
-          it('should exist', () => {
-            expect(Rothermel).toBeTruthy();
-          });
-        });
+const TO_RADIANS = Math.PI / 180;
+const TO_DEGREES = 180 / Math.PI;
+
+describe('Rothermel', () => {
+  it('should exist', () => {
+    expect(Rothermel).toBeTruthy();
+  });
+});
 
 
 describe('meanBulkDensity', () => {
@@ -365,5 +368,27 @@ describe('calcRelativeHumidityNearFuel', () => {
   
   it('algorithm has not changed', () => {
     expect(Rothermel.calcRelativeHumidityNearFuel(H_a, T_f, T_a)).toBe(H_f);
+  });
+});
+
+
+describe('calcEarthSunDistanceSqrd', () => {
+  const delta = 34 * TO_RADIANS;
+  const r2 = 1.047651;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcEarthSunDistanceSqrd(delta)).toBe(r2);
+  });
+});
+
+
+describe('calcSolarIrradianceOnHorzSurface', () => {
+  const I_a = 3;
+  const r2 = 1.047651;
+  const A = 45 * TO_RADIANS;
+  const I = 2.0248349341141676; 
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcSolarIrradianceOnHorzSurface(I_a, r2, A)).toBe(I);
   });
 });

@@ -24,6 +24,7 @@
 
 const HALF_PI = Math.PI / 2;
 const TO_RADIANS = Math.PI / 180;
+const TO_DEGREES = 180 / Math.PI;
 
 /**
  * The Rothermel, et al, fire spread model developed for modeling wildland fire behavior.
@@ -653,28 +654,43 @@ export default class Rothermel {
     return H_f
   }
 
-//    /**
-//     * Computes the solar irradiance.
-//     *
-//     * Rothermel 1986: eq. (3)
-//     *
-//     * @param I_a irradiance at the forest floor perpendicular to the solar ray [cal/cm2*min]
-//     * @param r2 The earth-sun (center of mass) distance squared
-//     * @param A solar elevation angle to the sun [radians]
-//     *
-//     * @return I - incident radiation on the forest floor [cal/cm2*min]
-//     */
-//    static public double calcSolarIrradianceOnHorzSurface(double I_a, double r2, double A) {
-//        // Rothermel et al, 1986, page 9
-//        // Equation #3
-//        // I = (I_a / r2) * sin A
-//        if (A <= 0) {
-//            return 0;
-//        }
-//        double I = (I_a / r2) * sin(A);
-//        return I;
-//    }
-//
+  /**
+   * Computes the earth-sun (center of mass) distance squared.
+   *
+   * @param {Number} delta solar declination [radians]
+   * 
+   * @return {Nunber} r2 earth-sun distance squared
+   */
+  static calcEarthSunDistanceSqrd(delta) {
+    // Rothermel et al, 1986, page 11
+    // Equation #7
+    // The earth-sun distance (squared) by analytic solution to tabular values
+    const r2 = 0.999847 + (0.001406 * (delta * TO_DEGREES));
+    return r2;
+  }
+
+  /**
+   * Computes the solar irradiance.
+   *
+   * Rothermel 1986: eq. (3)
+   *
+   * @param {Nunber} I_a irradiance at the forest floor perpendicular to the solar ray [cal/cm2*min]
+   * @param {Nunber} r2 The earth-sun (center of mass) distance squared
+   * @param {Nunber} A solar elevation angle to the sun [radians]
+   *
+   * @return {Nunber} I - incident radiation on the forest floor [cal/cm2*min]
+   */
+  static calcSolarIrradianceOnHorzSurface(I_a, r2, A) {
+    // Rothermel et al, 1986, page 9
+    // Equation #3
+    // I = (I_a / r2) * sin A
+    if (A <= 0) {
+      return 0
+    }
+    const I = (I_a / r2) * Math.sin(A);
+    return I;
+  }
+
 //    /**
 //     * Computes the optical air mass, i.e., the ratio of the optical path length of radiation
 //     * through the atmosphere at angle A, to the path length toward the zenith at sea level.
