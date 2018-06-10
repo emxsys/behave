@@ -164,10 +164,10 @@ describe('effectiveHeatingNumber', () => {
 
 
 describe('heatOfPreignition', () => {
-  const sv = 2
+  const Mf = 2
   const Q_ig = 250 + 1116 * (Mf * 0.01) // Mf = [fraction]
 
   it('algorithm has not changed', () => {
-    expect(Rothermel.heatOfPreignition(sv)).toBe(epsilon)
+    expect(Rothermel.heatOfPreignition(Mf)).toBe(Q_ig)
   })
 })
