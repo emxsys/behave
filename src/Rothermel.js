@@ -22,6 +22,8 @@
  * THE SOFTWARE.
  */
 
+const HALF_PI = Math.PI / 2;
+const TO_RADIANS = Math.PI / 180;
 
 /**
  * The Rothermel, et al, fire spread model developed for modeling wildland fire behavior.
@@ -59,8 +61,6 @@
  * @author Bruce Schubert
  */
 export default class Rothermel {
-
-  //private static final double HALF_PI = Math.PI / 2.;
 
   /**
    * Calculates the mean bulk density (fuel-bed weight per unit volume): rho_b.
@@ -374,23 +374,23 @@ export default class Rothermel {
     return E;
   }
 
-//    /**
-//     * Calculates the slope multiplier for the rate of spread: phi_s.
-//     *
-//     * Rothermel 1972: eq. (51) and (78)
-//     *
-//     * @param slopeDegrees The steepness of the slope [degrees].
-//     * @param beta The mean packing ratio.
-//     *
-//     * @return phi_s
-//     */
-//    public static double slopeFactor(double slopeDegrees, double beta) {
-//        double phi = toRadians(slopeDegrees);
-//        double tan_phi = tan(phi);
-//        double phi_s = 5.275 * pow(beta, -0.3) * pow(tan_phi, 2);
-//        return phi_s;
-//    }
-//
+  /**
+   * Calculates the slope multiplier for the rate of spread: phi_s.
+   *
+   * Rothermel 1972: eq. (51) and (78)
+   *
+   * @param {Number} slopeDegrees The steepness of the slope [degrees].
+   * @param {Number}bbeta The mean packing ratio.
+   *
+   * @return {Number} phi_s
+   */
+  static slopeFactor(slopeDegrees, beta) {
+    const phi = slopeDegrees * TO_RADIANS
+    const tan_phi = Math.tan(phi)
+    const phi_s = 5.275 * Math.pow(beta, -0.3) * Math.pow(tan_phi, 2)
+    return phi_s
+  }
+
 //    /**
 //     * Calculates the effective wind speed from the combined wind and slope factors: efw.
 //     *

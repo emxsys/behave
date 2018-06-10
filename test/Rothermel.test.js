@@ -214,12 +214,20 @@ describe('windFactor', () => {
   const midFlameWindSpd = 2;
   const sigma = 0.3;
   const beta_ratio = 0.4;
-  const C = Rothermel.windParameterC(sigma);
-  const B = Rothermel.windParameterB(sigma);
-  const E = Rothermel.windParameterE(sigma);
-  const phi_w = Rothermel.windFactor2(midFlameWindSpd, C, B, E, beta_ratio);
+  const phi_w = 13.551811735940076;
   
   it('algorithm has not changed', () => {
-    expect(Rothermel.windFactor(midFlameWindSpd, sigma, beta_ratio)).toBe(phi_w);
+    expect(Rothermel.windFactor(midFlameWindSpd, sigma, beta_ratio)).toBe(13.551811735940076);
+  });
+});
+
+
+describe('slopeFactor', () => {
+  const slopeDegrees = 45;
+  const beta = 0.3;
+  const phi_s = 7.569829322728009;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.slopeFactor(slopeDegrees, beta)).toBe(phi_s);
   });
 });
