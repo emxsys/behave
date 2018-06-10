@@ -429,28 +429,27 @@ export default class Rothermel {
     return efw
   }
 
-//    /**
-//     * Calculates the rate of spread with wind and/or slope: ros.
-//     *
-//     * Rothermel 1972: eq. (52) - heat source / heat sink
-//     *
-//     * @param reactionIntensity The fire reaction intensity (I_r) [BTU/ft2/min].
-//     * @param propogatingFlux The fire propagating flux (xi) [fraction].
-//     * @param windFactor The wind coefficient (phi_w).
-//     * @param slopeFactor The slope coefficient (phi_s).
-//     * @param heatSink The total heat sink (hsk) [Btu/ft3].
-//     *
-//     * @return ros [ft/min]
-//     */
-//    public static double rateOfSpread(double reactionIntensity, double propogatingFlux,
-//                                      double windFactor, double slopeFactor, double heatSink) {
-//        if (heatSink <= 0) {
-//            throw new IllegalArgumentException("hsk must be > 0.");
-//        }
-//        double ros = (reactionIntensity * propogatingFlux * (1 + windFactor + slopeFactor)) / heatSink;
-//        return ros;
-//    }
-//
+  /**
+   * Calculates the rate of spread with wind and/or slope: ros.
+   *
+   * Rothermel 1972: eq. (52) - heat source / heat sink
+   *
+   * @param {Number} reactionIntensity The fire reaction intensity (I_r) [BTU/ft2/min].
+   * @param {Number} propogatingFlux The fire propagating flux (xi) [fraction].
+   * @param {Number} windFactor The wind coefficient (phi_w).
+   * @param {Number} slopeFactor The slope coefficient (phi_s).
+   * @param {Number} heatSink The total heat sink (hsk) [Btu/ft3].
+   *
+   * @return {Number} ros [ft/min]
+   */
+  static rateOfSpread(reactionIntensity, propogatingFlux, windFactor, slopeFactor, heatSink) {
+    if (heatSink <= 0) {
+      throw new RangeError("heatSink must be > 0.");
+    }
+    const ros = (reactionIntensity * propogatingFlux * (1 + windFactor + slopeFactor)) / heatSink;
+    return ros;
+  }
+
 //    /**
 //     * Calculates the rate of spread without wind and slope: ros.
 //     *

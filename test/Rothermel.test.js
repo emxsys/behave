@@ -243,3 +243,17 @@ describe('effectiveWindSpeed', () => {
     expect(Rothermel.effectiveWindSpeed(phiEw, beta_ratio, sigma)).toBe(efw);
   });
 });
+
+
+describe('rateOfSpread', () => {
+  const reactionIntensity = 2;
+  const propogatingFlux = 3;
+  const windFactor = 4;
+  const slopeFactor = 5;
+  const heatSink = 6;
+  const ros = (reactionIntensity * propogatingFlux * (1 + windFactor + slopeFactor)) / heatSink; // 10 [ft/min]
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.rateOfSpread(reactionIntensity, propogatingFlux, windFactor, slopeFactor, heatSink)).toBe(ros);
+  });
+});
