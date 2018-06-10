@@ -333,3 +333,13 @@ describe('calcWindSpeedNearFuel', () => {
     expect(Rothermel.calcWindSpeedNearFuel(wndSpd20Ft, fuelDepth)).toBe(U_h);
   });
 });
+
+
+describe('eccentricity', () => {
+  const effectiveWind = 10;
+  const eccentricity = 0.23342132431186122;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.eccentricity(effectiveWind)).toBe(eccentricity);
+  });
+});

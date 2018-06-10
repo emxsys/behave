@@ -573,33 +573,35 @@ export default class Rothermel {
     return U_h
   }
 
-//    /**
-//     * Calculates the fire ellipse eccentricity from the effective wind speed.
-//     *
-//     * Anderson 1983: eq. (4)
-//     *
-//     * <pre>
-//     * Consider using Anderson 1983: eq. (17)
-//     *      l/w = 0.936 EXP(0.1l47U) + 0.461 EXP(-0.0692U)
-//     *  where U = midflame miles per hour.
-//     * </pre>
-//     * @param effectiveWind The effective wind speed of the combined wind and slope. [mph]
-//     * @return The eccentricity of the ellipse
-//     */
-//    public static double eccentricity(double effectiveWind) {
-//        double eccentricity = 0;
-//        if (effectiveWind > 0) {
-//            // From FireLib 1.04, firelib.c by Collin D. Bevins
-//            // a1 = major axis of semiellipse at the rear of the fire,
-//            //    = 1. + 0.25 * effectiveWindSpd / 88.0);
-//            double lbRatio = 1. + 0.002840909 * effectiveWind;
-//            if (lbRatio > 1.00001) {
-//                eccentricity = sqrt(pow(lbRatio, 2) - 1.0) / lbRatio;
-//            }
-//        }
-//        return eccentricity;
-//    }
-//
+  /**
+   * Calculates the fire ellipse eccentricity from the effective wind speed.
+   *
+   * Anderson 1983: eq. (4)
+   *
+   * <pre>
+   * Consider using Anderson 1983: eq. (17)
+   *      l/w = 0.936 EXP(0.1l47U) + 0.461 EXP(-0.0692U)
+   *  where U = midflame miles per hour.
+   * </pre>
+   * 
+   * @param {Number} effectiveWind The effective wind speed of the combined wind and slope. [mph]
+   * 
+   * @return {Number} The eccentricity of the ellipse
+   */
+  static eccentricity(effectiveWind) {
+    let eccentricity = 0
+    if (effectiveWind > 0) {
+      // From FireLib 1.04, firelib.c by Collin D. Bevins
+      // a1 = major axis of semiellipse at the rear of the fire,
+      //    = 1. + 0.25 * effectiveWindSpd / 88.0);
+      const lbRatio = 1. + 0.002840909 * effectiveWind
+      if (lbRatio > 1.00001) {
+        eccentricity = Math.sqrt(Math.pow(lbRatio, 2) - 1.0) / lbRatio
+      }
+    }
+    return eccentricity
+  }
+
 //    /**
 //     * Compute difference between fuel temperature and the air temperature due to solar heating and
 //     * wind cooling effects.
