@@ -450,25 +450,25 @@ export default class Rothermel {
     return ros;
   }
 
-//    /**
-//     * Calculates the rate of spread without wind and slope: ros.
-//     *
-//     * Rothermel 1972: eq. (52) - heat source / heat sink
-//     *
-//     * @param reactionIntensity The fire reaction intensity (I_r) [BTU/ft2/min].
-//     * @param propogatingFlux The fire propagating flux (xi) [fraction].
-//     * @param heatSink The total heat sink (hsk) [Btu/ft3].
-//     *
-//     * @return ros [ft/min]
-//     */
-//    public static double rateOfSpreadNoWindNoSlope(double reactionIntensity, double propogatingFlux, double heatSink) {
-//        if (heatSink <= 0) {
-//            throw new IllegalArgumentException("hsk must be > 0.");
-//        }
-//        double ros = (reactionIntensity * propogatingFlux) / heatSink;
-//        return ros;
-//    }
-//
+  /**
+   * Calculates the rate of spread without wind and slope: ros.
+   *
+   * Rothermel 1972: eq. (52) - heat source / heat sink
+   *
+   * @param {Number} reactionIntensity The fire reaction intensity (I_r) [BTU/ft2/min].
+   * @param {Number} propogatingFlux The fire propagating flux (xi) [fraction].
+   * @param {Number} heatSink The total heat sink (hsk) [Btu/ft3].
+   *
+   * @return {Number} ros [ft/min]
+   */
+  static rateOfSpreadNoWindNoSlope(reactionIntensity, propogatingFlux, heatSink) {
+    if (heatSink <= 0) {
+      throw new RangeError("heatSink must be > 0.")
+    }
+    const ros = (reactionIntensity * propogatingFlux) / heatSink
+    return ros
+  }
+
 //    /**
 //     * Calculates the flame zone depth: fzd.
 //     *

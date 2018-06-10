@@ -257,3 +257,15 @@ describe('rateOfSpread', () => {
     expect(Rothermel.rateOfSpread(reactionIntensity, propogatingFlux, windFactor, slopeFactor, heatSink)).toBe(ros);
   });
 });
+
+
+describe('rateOfSpreadNoWindNoSlope', () => {
+  const reactionIntensity = 2;
+  const propogatingFlux = 3;
+  const heatSink = 6;
+  const ros = (reactionIntensity * propogatingFlux) / heatSink; // 1 [ft/min]
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.rateOfSpreadNoWindNoSlope(reactionIntensity, propogatingFlux, heatSink)).toBe(ros);
+  });
+});
