@@ -355,3 +355,15 @@ describe('calcFuelTemp', () => {
     expect(Rothermel.calcFuelTemp(I, T_a, U_h) ).toBe(T_f);
   });
 });
+
+
+describe('calcRelativeHumidityNearFuel', () => {
+  const H_a = 50; // %
+  const T_a = 67; // F
+  const T_f = 89; // F
+  const H_f = 24.19202432339955; // %
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcRelativeHumidityNearFuel(H_a, T_f, T_a)).toBe(H_f);
+  });
+});

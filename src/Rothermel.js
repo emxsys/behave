@@ -632,26 +632,27 @@ export default class Rothermel {
     return T_f;
   }
 
-//    /**
-//     * Compute the relative humidity for the air immediately adjacent to the fuel.
-//     *
-//     * Rothermel 1986: eq. (2)
-//     *
-//     * @param H_a relative humidity of the air [percent]
-//     * @param T_f fuel temperature [Fahrenheit]
-//     * @param T_a air temperature [Fahrenheit]
-//     * @return H_f - relative humidity of the air next to the fuel [percent]
-//     */
-//    static public double calcRelativeHumidityNearFuel(double H_a, double T_f, double T_a) {
-//        // Rothermel et al, 1986, page 9
-//        // Equation #2
-//        // Correction for relative humidity as a function of the fuel temperature
-//        // and air temperature:
-//        //  H_f = H_a * exp(-0.033(T_f - T_a))
-//        double H_f = H_a * exp(-0.033 * (T_f - T_a));
-//        return H_f;
-//    }
-//
+  /**
+   * Compute the relative humidity for the air immediately adjacent to the fuel.
+   *
+   * Rothermel 1986: eq. (2)
+   *
+   * @param {Nunber} H_a relative humidity of the air [percent]
+   * @param {Nunber} T_f fuel temperature [Fahrenheit]
+   * @param {Nunber} T_a air temperature [Fahrenheit]
+   * 
+   * @return {Nunber} H_f - relative humidity of the air next to the fuel [percent]
+   */
+  static calcRelativeHumidityNearFuel(H_a, T_f, T_a) {
+    // Rothermel et al, 1986, page 9
+    // Equation #2
+    // Correction for relative humidity as a function of the fuel temperature
+    // and air temperature:
+    //  H_f = H_a * exp(-0.033(T_f - T_a))
+    const H_f = H_a * Math.exp(-0.033 * (T_f - T_a))
+    return H_f
+  }
+
 //    /**
 //     * Computes the solar irradiance.
 //     *
