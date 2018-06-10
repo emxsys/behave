@@ -103,25 +103,25 @@ export default class Rothermel {
     return beta;
   }
 
-//  /**
-//   * Computes the optimal packing ratio for the fuel: beta_opt.
-//   *
-//   * Optimum packing ratio is a term used in the Rothermel's (1972) surface fire spread model
-//   * indicating the packing ratio that optimizes the reaction velocity term of the spread model.
-//   * Optimum packing ratio is a function of the fineness of fuel particles, which is measured by
-//   * the characteristic surface-area-to-volume ratio of the fuelbed. Optimum packing ratio does
-//   * not optimize fire behavior (rate of spread or fireline intensity). Fire Science Glossary
-//   * [electronic]. http://www.firewords.net
-//   *
-//   * @param {Number} sigma The characteristic SAV ratio for the fuel complex [ft2/ft3].
-//   *
-//   * @return {Number} beta_opt [dimensionless]
-//   */
-//  static optimalPackingRatio(sigma) {
-//    let beta_opt = 3.348 * pow(sigma, -0.8189);
-//    return beta_opt;
-//  }
-//
+  /**
+   * Computes the optimal packing ratio for the fuel: beta_opt.
+   *
+   * Optimum packing ratio is a term used in the Rothermel's (1972) surface fire spread model
+   * indicating the packing ratio that optimizes the reaction velocity term of the spread model.
+   * Optimum packing ratio is a function of the fineness of fuel particles, which is measured by
+   * the characteristic surface-area-to-volume ratio of the fuelbed. Optimum packing ratio does
+   * not optimize fire behavior (rate of spread or fireline intensity). Fire Science Glossary
+   * [electronic]. http://www.firewords.net
+   *
+   * @param {Number} sigma The characteristic SAV ratio for the fuel complex [ft2/ft3].
+   *
+   * @return {Number} beta_opt [dimensionless]
+   */
+  static optimalPackingRatio(sigma) {
+    let beta_opt = 3.348 * Math.pow(sigma, -0.8189)
+    return beta_opt
+  }
+
 //  /**
 //   * Computes the characteristic surface-area-to-volume ratio for the fuel complex: sigma.
 //   *
