@@ -60,7 +60,6 @@
  */
 export default class Rothermel {
 
-  //private static final Logger logger = Logger.getLogger(Rothermel.class.getName());
   //private static final double HALF_PI = Math.PI / 2.;
 
   /**
@@ -248,7 +247,7 @@ export default class Rothermel {
    *
    * @return {Number} epsilon.
    */
-  static  effectiveHeatingNumber(sv) {
+  static effectiveHeatingNumber(sv) {
     let epsilon = 0
     if (sv > 0) {
       epsilon = Math.exp(-138 / sv)
@@ -265,7 +264,7 @@ export default class Rothermel {
    *
    * @return {Number} Q_ig.
    */
-  static  heatOfPreignition(Mf) {
+  static heatOfPreignition(Mf) {
     const Q_ig = 250 + 1116 * (Mf * 0.01) // Mf = [fraction]
     return Q_ig
   }
@@ -284,7 +283,7 @@ export default class Rothermel {
    *
    * @return {NUmber} hsk [Btu/ft3]
    */
-  static  heatSink(preignitionHeat, effectiveHeating, sw, density) {
+  static heatSink(preignitionHeat, effectiveHeating, sw, density) {
     let Qig_t = 0   // sum[i=1,n][Qig_i]
     let sw_t = 0    // sum[i=1,n][sw_i]
     const len = sw.length
@@ -296,85 +295,85 @@ export default class Rothermel {
     return hsk;
   }
 
-//    /**
-//     * Calculates the wind factor: phi_w.
-//     *
-//     * Rothermel 1972: eq. (47) and (79),(82),(83),(84)
-//     *
-//     * @param midFlameWindSpd The wind speed at mid-flame height [ft/min].
-//     * @param sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
-//     * @param beta_ratio The relative packing ratio [beta/beta_opt].
-//     *
-//     * @return phi_w
-//     */
-//    public static double windFactor(double midFlameWindSpd, double sigma, double beta_ratio) {
-//        double C = windParameterC(sigma);
-//        double B = windParameterB(sigma);
-//        double E = windParameterE(sigma);
-//        double phi_w = windFactor(midFlameWindSpd, C, B, E, beta_ratio);
-//        return phi_w;
-//    }
-//
-//    /**
-//     * Calculates the wind multiplier for the rate of spread: phi_w.
-//     *
-//     * Rothermel 1972: eq. (47)
-//     *
-//     * @param midFlameWindSpd The wind speed at mid-flame height [ft/min].
-//     * @param C Result from Rothermel 1972: eq. (48).
-//     * @param B Result from Rothermel 1972: eq. (49).
-//     * @param E Result from Rothermel 1972: eq. (50).
-//     * @param beta_ratio The relative packing ratio [beta/beta_opt].
-//     *
-//     * @return phi_w
-//     */
-//    public static double windFactor(double midFlameWindSpd, double C, double B, double E, double beta_ratio) {
-//        double phi_w = C * pow(midFlameWindSpd, B) * pow(beta_ratio, -E);
-//        return phi_w;
-//    }
-//
-//    /**
-//     * Calculates the wind parameter C.
-//     *
-//     * Rothermel 1972: eq. (48)
-//     *
-//     * @param sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
-//     *
-//     * @return C
-//     */
-//    public static double windParameterC(double sigma) {
-//        double C = 7.47 * exp(-0.133 * pow(sigma, 0.55));
-//        return C;
-//    }
-//
-//    /**
-//     * Calculates the wind parameter B.
-//     *
-//     * Rothermel 1972: eq. (49)
-//     *
-//     * @param sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
-//     *
-//     * @return B
-//     */
-//    public static double windParameterB(double sigma) {
-//        double B = 0.02526 * pow(sigma, 0.54);
-//        return B;
-//    }
-//
-//    /**
-//     * Calculates the wind parameter E.
-//     *
-//     * Rothermel 1972: eq. (50)
-//     *
-//     * @param sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
-//     *
-//     * @return E
-//     */
-//    public static double windParameterE(double sigma) {
-//        double E = 0.715 * exp(-0.000359 * sigma);
-//        return E;
-//    }
-//
+  /**
+   * Calculates the wind factor: phi_w.
+   *
+   * Rothermel 1972: eq. (47) and (79),(82),(83),(84)
+   *
+   * @param {Number} midFlameWindSpd The wind speed at mid-flame height [ft/min].
+   * @param {Number} sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
+   * @param {Number} beta_ratio The relative packing ratio [beta/beta_opt].
+   *
+   * @return {Number} phi_w
+   */
+  static windFactor(midFlameWindSpd, sigma, beta_ratio) {
+    const C = Rothermel.windParameterC(sigma)
+    const B = Rothermel.windParameterB(sigma)
+    const E = Rothermel.windParameterE(sigma)
+    const phi_w = Rothermel.windFactor2(midFlameWindSpd, C, B, E, beta_ratio)
+    return phi_w
+  }
+
+  /**
+   * Calculates the wind multiplier for the rate of spread: phi_w.
+   *
+   * Rothermel 1972: eq. (47)
+   *
+   * @param {Number} midFlameWindSpd The wind speed at mid-flame height [ft/min].
+   * @param {Number} C Result from Rothermel 1972: eq. (48).
+   * @param {Number} B Result from Rothermel 1972: eq. (49).
+   * @param {Number} E Result from Rothermel 1972: eq. (50).
+   * @param {Number} beta_ratio The relative packing ratio [beta/beta_opt].
+   *
+   * @return {Number} phi_w
+   */
+  static windFactor2(midFlameWindSpd, C, B, E, beta_ratio) {
+    const phi_w = C * Math.pow(midFlameWindSpd, B) * Math.pow(beta_ratio, -E)
+    return phi_w
+  }
+
+  /**
+   * Calculates the wind parameter C.
+   *
+   * Rothermel 1972: eq. (48)
+   *
+   * @param {Number} sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
+   *
+   * @return {Number} C
+   */
+  static windParameterC(sigma) {
+    const C = 7.47 * Math.exp(-0.133 * Math.pow(sigma, 0.55))
+    return C
+  }
+
+  /**
+   * Calculates the wind parameter B.
+   *
+   * Rothermel 1972: eq. (49)
+   *
+   * @param {Number} sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
+   *
+   * @return {Number} B
+   */
+  static windParameterB(sigma) {
+    const B = 0.02526 * Math.pow(sigma, 0.54)
+    return B
+  }
+
+  /**
+   * Calculates the wind parameter E.
+   *
+   * Rothermel 1972: eq. (50)
+   *
+   * @param {Number} sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
+   *
+   * @return {Number} E
+   */
+  static windParameterE(sigma) {
+    const E = 0.715 * Math.exp(-0.000359 * sigma)
+    return E;
+  }
+
 //    /**
 //     * Calculates the slope multiplier for the rate of spread: phi_s.
 //     *
