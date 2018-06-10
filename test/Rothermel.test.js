@@ -269,3 +269,14 @@ describe('rateOfSpreadNoWindNoSlope', () => {
     expect(Rothermel.rateOfSpreadNoWindNoSlope(reactionIntensity, propogatingFlux, heatSink)).toBe(ros);
   });
 });
+
+
+describe('flameZoneDepth', () => {
+  const rateOfSpread = 2;
+  const flameResidenceTime = 3;
+  const fzd = rateOfSpread * flameResidenceTime;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.flameZoneDepth(rateOfSpread, flameResidenceTime)).toBe(fzd);
+  });
+});

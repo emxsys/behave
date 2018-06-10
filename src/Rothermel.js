@@ -469,23 +469,23 @@ export default class Rothermel {
     return ros
   }
 
-//    /**
-//     * Calculates the flame zone depth: fzd.
-//     *
-//     * The depth, or front-to-back distance, of the actively flaming zone of a free spreading fire
-//     * can be determined from the rate of spread and the particle-residence time. Albini 1976: pg.
-//     * 86
-//     *
-//     * @param rateOfSpread The fire rate of spread (ros) [ft/min].
-//     * @param flameResidenceTime The fuelbed's flame residence time [min].
-//     *
-//     * @return fzd [ft]
-//     */
-//    public static double flameZoneDepth(double rateOfSpread, double flameResidenceTime) {
-//        double fzd = rateOfSpread * flameResidenceTime;
-//        return fzd;
-//    }
-//
+  /**
+   * Calculates the flame zone depth: fzd.
+   *
+   * The depth, or front-to-back distance, of the actively flaming zone of a free spreading fire
+   * can be determined from the rate of spread and the particle-residence time. Albini 1976: pg.
+   * 86
+   *
+   * @param {Number} rateOfSpread The fire rate of spread (ros) [ft/min].
+   * @param {Number} flameResidenceTime The fuelbed's flame residence time [min].
+   *
+   * @return {Number} fzd [ft]
+   */
+  static flameZoneDepth(rateOfSpread, flameResidenceTime) {
+    const fzd = rateOfSpread * flameResidenceTime;
+    return fzd;
+  }
+
 //    /**
 //     * Calculates Byram's fireline intensity: I.
 //     *
