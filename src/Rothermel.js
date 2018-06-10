@@ -857,7 +857,7 @@ export default class Rothermel {
       // Equation #5
       m = E_w + (m_R - E_w) / 1.9953;       //-- original
       //m = E_W + (E_W - m_R) / 1.9953;     // corrected based on Anderson 2009 87-10 
-    } else { 
+    } else {
       // Drying: fuel moisture is above the drying curve so a drying trend is in effect
       // Here we constrain 20' wind to between 1 and 14 mph
       W = Math.min(Math.max(1.0, W), 14.0);
@@ -877,64 +877,61 @@ export default class Rothermel {
     return 101 - f;
   }
 
-//    /**
-//     * Computes the Canadian Hourly Fine Fuel Moisture percentage.
-//     *
-//     * Note: The calcCanadianStandardDailyFineFuelMoisure provides the first m_0. Subsequently, the
-//     * previous hour's m becomes m_0.
-//     *
-//     * Rothermel, et al, "Modeling moisture content of fine dead wildland fuels: input to the BEHAVE
-//     * fire prediction system." Research Paper INT-359. 1986. Equations located on page 47.
-//     *
-//     * @param m_0 previous hour's fuel moisture [percent]
-//     * @param H relative humidity [percent]
-//     * @param T_c air temperature [Celsius]
-//     * @param W_k 20' wind speed [KPH]
-//     *
-//     * @return fuel moisture [percent]
-//     */
-//    static public double calcCanadianHourlyFineFuelMoisture(double m_0, double H, double T_c, double W_k) {
-//        // Equation #1 [not used/applicatble] converts previous hours FFMC to fuel moisture percent
-//        // m_0 = previous hour's fuel moisture;
-//
-//        // constrain wind to 22.5 kph
-//        W_k = min(max(0, W_k), 22.5);
-//
-//        double m = 0;
-//
-//        // Equation #2a compute equilibruim moisture curve (EMC) for drying
-//        double E_d = 0.942 * pow(H, 0.679) + 11 * exp((H - 100) / 10)
-//                + 0.18 * (21.1 - T_c) * (1 - exp(-0.115 * H));
-//        // Equation #2b compute equilibruim moisture curve (EMC) for wetting
-//        double E_w = 0.618 * pow(H, 0.753) + 10 * exp((H - 100) / 10)
-//                + 0.18 * (21.1 - T_c) * (1 - exp(-0.115 * H));
-//
-//        if (m_0 > E_d) {
-//            // Drying...
-//            // Equations #3a and #3b compute log drying rate for hourly computation, log base 10
-//            double k_a = 0.424 * (1 - pow(H / 100, 1.7)) + 0.0694 * pow(W_k, 0.5) * (1 - pow(H / 100, 8));
-//            double k_d = k_a * 0.0579 * exp(0.0365 * T_c);
-//            // Equation #5a computes final fuel moisture percent
-//            m = E_d + (m_0 - E_d) * exp(-2.303 * k_d);
-//
-//        } else if (m_0 < E_w) {
-//            // Wetting...
-//
-//            // Rothermel (4a) and (4b) compute log wetting rate for hourly computation, log base 10
-//            double k_b = 0.424 * (1 - (pow((100 - H) / 100, 1.7)))
-//                    + 0.0694 * pow(W_k, 0.5) * (1 - (pow((100 - H) / 100, 8)));
-//
-//            double k_w = k_b * 0.0579 * exp(0.0365 * T_c);
-//
-//            // Equation #5b computes final fuel moisture percent
-//            m = E_w - (E_w - m_0) * exp(-2.303 * k_w);    // Rothemel pg 48
-//
-//        } else {
-//            m = m_0;
-//        }
-//        return m;
-//    }
-//
+  /**
+   * Computes the Canadian Hourly Fine Fuel Moisture percentage.
+   *
+   * Note: The calcCanadianStandardDailyFineFuelMoisure provides the first m_0. Subsequently, the
+   * previous hour's m becomes m_0.
+   *
+   * Rothermel, et al, "Modeling moisture content of fine dead wildland fuels: input to the BEHAVE
+   * fire prediction system." Research Paper INT-359. 1986. Equations located on page 47.
+   *
+   * @param {Number} m_0 previous hour's fuel moisture [percent]
+   * @param {Number} H relative humidity [percent]
+   * @param {Number} T_c air temperature [Celsius]
+   * @param {Number} W_k 20' wind speed [KPH]
+   *
+   * @return {Number} fuel moisture [percent]
+   */
+  static calcCanadianHourlyFineFuelMoisture(m_0, H, T_c, W_k) {
+    // Equation #1 [not used/applicatble] converts previous hours FFMC to fuel moisture percent
+    // m_0 = previous hour's fuel moisture;
+
+    // constrain wind to 22.5 kph
+    W_k = Math.min(Math.max(0, W_k), 22.5);
+
+    let m = 0;
+
+    // Equation #2a compute equilibruim moisture curve (EMC) for drying
+    const E_d = 0.942 * Math.pow(H, 0.679) + 11 * Math.exp((H - 100) / 10)
+            + 0.18 * (21.1 - T_c) * (1 - Math.exp(-0.115 * H));
+    // Equation #2b compute equilibruim moisture curve (EMC) for wetting
+    const E_w = 0.618 * Math.pow(H, 0.753) + 10 * Math.exp((H - 100) / 10)
+            + 0.18 * (21.1 - T_c) * (1 - Math.exp(-0.115 * H));
+
+    if (m_0 > E_d) {
+      // Drying...
+      // Equations #3a and #3b compute log drying rate for hourly computation, log base 10
+      const k_a = 0.424 * (1 - Math.pow(H / 100, 1.7)) + 0.0694 * Math.pow(W_k, 0.5) * (1 - Math.pow(H / 100, 8));
+      const k_d = k_a * 0.0579 * Math.exp(0.0365 * T_c);
+      // Equation #5a computes final fuel moisture percent
+      m = E_d + (m_0 - E_d) * Math.exp(-2.303 * k_d);
+
+    } else if (m_0 < E_w) {
+      // Wetting...
+      // Rothermel (4a) and (4b) compute log wetting rate for hourly computation, log base 10
+      const k_b = 0.424 * (1 - (Math.pow((100 - H) / 100, 1.7)))
+              + 0.0694 * Math.pow(W_k, 0.5) * (1 - (Math.pow((100 - H) / 100, 8)));
+      const k_w = k_b * 0.0579 * Math.exp(0.0365 * T_c);
+      // Equation #5b computes final fuel moisture percent
+      m = E_w - (E_w - m_0) * Math.exp(-2.303 * k_w);    // Rothemel pg 48
+
+    } else {
+      m = m_0;
+    }
+    return m;
+  }
+
 //    /**
 //     * Computes the fine dead fuel moisture using the EMC from Canadian Standard Daily Fine Fuel
 //     * Moisture Code formula. The return value assumes instantaneous drying and wetting. <br/>

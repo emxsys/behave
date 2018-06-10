@@ -443,3 +443,16 @@ describe('calcCanadianStandardDailyFineFuelMoisture', () => {
     expect(Rothermel.calcCanadianStandardDailyFineFuelMoisture(m_0, T_f, H_f, W, R)).toBeCloseTo(fm, 10);
   });
 });
+
+
+describe('calcCanadianHourlyFineFuelMoisture', () => {
+  const m_0 = 20;   // previous hour fuel moisture
+  const T_c = 20;   // air temp C
+  const H = 50;     // RH 
+  const W_k = 16;   // 20ft wind speed KPH
+  const fm = 19.07905001378493;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcCanadianHourlyFineFuelMoisture(m_0, H, T_c, W_k)).toBeCloseTo(fm, 10);
+  });
+});
