@@ -691,27 +691,28 @@ export default class Rothermel {
     return I;
   }
 
-//    /**
-//     * Computes the optical air mass, i.e., the ratio of the optical path length of radiation
-//     * through the atmosphere at angle A, to the path length toward the zenith at sea level.
-//     *
-//     * Rothermel 1986: eq. (16)
-//     *
-//     * @param A the solar altitude angle [radians]
-//     * @param E the elevation at angle A [feet]
-//     * @return M the optical air mass ratio
-//     */
-//    static public double calcOpticalAirMass(double A, double E) {
-//        // Equation #16
-//        // M = (absolute_pressure / sea_level_pressure) 
-//        // csc A = exp(-0.0000448E) csc A
-//        double M = 0;
-//        if (A > 0) {
-//            M = exp(-0.0000448 * E) * 1.0 / sin(A);
-//        }
-//        return M;
-//    }
-//
+  /**
+   * Computes the optical air mass, i.e., the ratio of the optical path length of radiation
+   * through the atmosphere at angle A, to the path length toward the zenith at sea level.
+   *
+   * Rothermel 1986: eq. (16)
+   *
+   * @param {Number} A the solar altitude angle [radians]
+   * @param {Number} E the elevation at angle A [feet]
+   * 
+   * @return {Number} M the optical air mass ratio
+   */
+  static calcOpticalAirMass(A, E) {
+    // Equation #16
+    // M = (absolute_pressure / sea_level_pressure) 
+    // csc A = exp(-0.0000448E) csc A
+    let M = 0;
+    if (A > 0) {
+      M = Math.exp(-0.0000448 * E) * 1.0 / Math.sin(A);
+    }
+    return M;
+  }
+
 //    /**
 //     * Computes irradiance at forest floor perpendicular to solar ray (1 [cal/cm2*min] = 697.8
 //     * [watts/m2])

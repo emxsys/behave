@@ -392,3 +392,14 @@ describe('calcSolarIrradianceOnHorzSurface', () => {
     expect(Rothermel.calcSolarIrradianceOnHorzSurface(I_a, r2, A)).toBe(I);
   });
 });
+
+
+describe('calcOpticalAirMass', () => {
+  const A = 45 * TO_RADIANS;
+  const E = 1000; // ft
+  const M = 1.3522550283652721; 
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcOpticalAirMass(A, E)).toBe(M);
+  });
+});
