@@ -713,38 +713,39 @@ export default class Rothermel {
     return M;
   }
 
-//    /**
-//     * Computes irradiance at forest floor perpendicular to solar ray (1 [cal/cm2*min] = 697.8
-//     * [watts/m2])
-//     *
-//     * @param M is the optical air mass ratio
-//     * @param S_c cloud cover [percent]
-//     * @param p is the transparency coefficient
-//     * @return attenuated irradiance [cal/cm2*min]
-//     */
-//    static public double calcAttenuatedIrradiance(double M, double S_c, double p) {
-//        // I_a = I_M * tau_n
-//        //  where:
-//        //      tau_n is net transmittance of clouds and trees
-//        //      I_M is the direct solar irradiance including atmospheric attenuation
-//        // I_M = I_o * pM
-//        //  where:
-//        //      I_o is incident intensity or solar constant 1.98 cal/cm2*min
-//        //      p is the transparency coefficient
-//        //      M is the optical air mass, the ratio of the
-//        //
-//        if (M <= 0) {
-//            return 0;
-//        }
-//        final double I_o = 1.98;        // solar constant [cal/cm2*min]
-//        double tau_c = 1 - (S_c / 100.0); // cloud shade transmittance
-//        double tau_t = 1;               // tree shade transmittance (default 1 for now)
-//        double tau_n = tau_t * tau_c;
-//        double I_M = I_o * pow(p, M);   // incident radiation attenuated by atmosphere
-//        double I_a = I_M * tau_n;       // irradiance at forest floor perpendicular to solar ray
-//        return I_a;
-//    }
-//
+  /**
+   * Computes irradiance at forest floor perpendicular to solar ray (1 [cal/cm2*min] = 697.8
+   * [watts/m2])
+   *
+   * @param {Number} M is the optical air mass ratio
+   * @param {Number} S_c cloud cover [percent]
+   * @param {Number} p is the transparency coefficient
+   * 
+   * @return {Number} attenuated irradiance [cal/cm2*min]
+   */
+  static calcAttenuatedIrradiance(M, S_c, p) {
+    // I_a = I_M * tau_n
+    //  where:
+    //      tau_n is net transmittance of clouds and trees
+    //      I_M is the direct solar irradiance including atmospheric attenuation
+    // I_M = I_o * pM
+    //  where:
+    //      I_o is incident intensity or solar constant 1.98 cal/cm2*min
+    //      p is the transparency coefficient
+    //      M is the optical air mass, the ratio of the
+    //
+    if (M <= 0) {
+      return 0;
+    }
+    const I_o = 1.98;                 // solar constant [cal/cm2*min]
+    const tau_c = 1 - (S_c / 100.0);  // cloud shade transmittance
+    const tau_t = 1;                  // tree shade transmittance (default 1 for now)
+    const tau_n = tau_t * tau_c;
+    const I_M = I_o * Math.pow(p, M); // incident radiation attenuated by atmosphere
+    const I_a = I_M * tau_n;          // irradiance at forest floor perpendicular to solar ray
+    return I_a;
+  }
+
 //    /**
 //     * Computes the irradiance on a slope (neglecting the small variation in r).
 //     *

@@ -403,3 +403,15 @@ describe('calcOpticalAirMass', () => {
     expect(Rothermel.calcOpticalAirMass(A, E)).toBe(M);
   });
 });
+
+
+describe('calcAttenuatedIrradiance', () => {
+  const M = 1.3;
+  const S_c = 50;
+  const p = 1; // ft
+  const I_a = 0.99; 
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcAttenuatedIrradiance(M, S_c, p) ).toBe(I_a);
+  });
+});
