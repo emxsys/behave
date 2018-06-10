@@ -84,3 +84,14 @@ describe('optimalPackingRatio', () => {
     expect(Rothermel.optimalPackingRatio(sigma)).toBe(beta_opt)
   })
 })
+
+
+describe('characteristicSAV', () => {
+    const sv = [3]  // ft2/ft3
+    const w0 = [2]  // lbs/ft2
+    const sigma = (sv[0] * sv[0] * w0[0]) / (sv[0] * w0[0])
+
+  it('algorithm has not changed', () => {
+    expect(Rothermel.characteristicSAV(sv, w0)).toBe(sigma)
+  })
+})

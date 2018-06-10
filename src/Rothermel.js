@@ -122,35 +122,36 @@ export default class Rothermel {
     return beta_opt
   }
 
-//  /**
-//   * Computes the characteristic surface-area-to-volume ratio for the fuel complex: sigma.
-//   *
-//   * In Rothermel's (1972) surface fire spread model, characteristic surface-area-to-volume (SAV)
-//   * ratio constitutes the fuelbed-average SAV weighted by particle surface area. Surface-area
-//   * weighting emphasizes fine fuel because finer fuel particles have larger SAV ratios. Fire
-//   * Science Glossary [electronic]. http://www.firewords.net
-//   *
-//   * Rothermel 1972: eq. (71) and (72).
-//   *
-//   * @param {Number[]} sv An array of fuel particle SAV ratio values [ft2/ft3].
-//   * @param {Number[]} w0 An array of fuel particle loading values [lbs/ft2].
-//   *
-//   * @return {Number} sigma [ft2/ft3]
-//   */
-//  static characteristicSAV(sv, w0) {
-//    let sw_t = 0;     // sw = (sv * w)
-//    let s2w_t = 0;    // s2w = (sv^2 * w)
-//    for (let i = 0; i < sv.length; i++) {
-//      sw_t += sv[i] * w0[i];
-//      s2w_t += sv[i] * sv[i] * w0[i];
-//    }
-//    if (sw_t <= 0) {
-//      throw new RangeError("w0 total loading must be > 0.");
-//    }
-//    let sigma = s2w_t / sw_t;
-//    return sigma;
-//  }
-//
+  /**
+   * Computes the characteristic surface-area-to-volume ratio for the fuel complex: sigma.
+   *
+   * In Rothermel's (1972) surface fire spread model, characteristic surface-area-to-volume (SAV)
+   * ratio constitutes the fuelbed-average SAV weighted by particle surface area. Surface-area
+   * weighting emphasizes fine fuel because finer fuel particles have larger SAV ratios. Fire
+   * Science Glossary [electronic]. http://www.firewords.net
+   *
+   * Rothermel 1972: eq. (71) and (72).
+   *
+   * @param {Number[]} sv An array of fuel particle SAV ratio values [ft2/ft3].
+   * @param {Number[]} w0 An array of fuel particle loading values [lbs/ft2].
+   *
+   * @return {Number} sigma [ft2/ft3]
+   */
+  static characteristicSAV(sv, w0) {
+    let sw_t = 0      // sw = (sv * w)
+    let s2w_t = 0     // s2w = (sv^2 * w)
+    const len = sv.length
+    for (let i = 0; i < len; i++) {
+      sw_t += sv[i] * w0[i] 
+      s2w_t += sv[i] * sv[i] * w0[i] 
+    }
+    if (sw_t <= 0) {
+      throw new RangeError("w0 total loading must be > 0.");
+    }
+    const sigma = s2w_t / sw_t
+    return sigma;
+  }
+
 //    /**
 //     * Calculates the potential reaction velocity: gamma.
 //     *
