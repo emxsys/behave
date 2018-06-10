@@ -119,3 +119,13 @@ describe('reactionIntensity', () => {
     expect(Rothermel.reactionIntensity(gamma, heat, eta_M, eta_s)).toBe(I_r)
   })
 })
+
+
+describe('flameResidenceTime', () => {
+    const sigma = 2 
+    const tau = 384 / sigma
+
+  it('algorithm has not changed', () => {
+    expect(Rothermel.flameResidenceTime(sigma)).toBe(tau)
+  })
+})

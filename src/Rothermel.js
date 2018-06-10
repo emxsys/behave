@@ -189,22 +189,22 @@ export default class Rothermel {
     return I_r;
   }
 
-//    /**
-//     * Calculates the flame residence time: tau.
-//     *
-//     * Albini (1976): p.91
-//     *
-//     * @param sigma The characteristic SAV ratio [ft2/ft3].
-//     * @return tau [min].
-//     */
-//    public static double flameResidenceTime(double sigma) {
-//        if (sigma <= 0) {
-//            throw new IllegalArgumentException("sigma must be > 0.");
-//        }
-//        double tau = 384. / sigma;
-//        return tau;
-//    }
-//
+  /**
+   * Calculates the flame residence time: tau.
+   *
+   * Albini (1976): p.91
+   *
+   * @param {Number} sigma The characteristic SAV ratio [ft2/ft3].
+   * @return {Number} tau [min].
+   */
+  static flameResidenceTime(sigma) {
+    if (sigma <= 0) {
+      throw new RangeError("sigma must be > 0.")
+    }
+    const tau = 384 / sigma
+    return tau
+  }
+
 //    /**
 //     * Calculates the heat release per unit area: hpa.
 //     *
