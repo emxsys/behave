@@ -932,41 +932,42 @@ export default class Rothermel {
     return m;
   }
 
-//    /**
-//     * Computes the fine dead fuel moisture using the EMC from Canadian Standard Daily Fine Fuel
-//     * Moisture Code formula. The return value assumes instantaneous drying and wetting. <br/>
-//     *
-//     * Anderson, K., 2009, "A Comparison of Hourly Fire Fuel Moisture Code Calculations within
-//     * Canada", Canadian Forest Service
-//     *
-//     * @param m_0 Initial fuel moisture used to determine drying or wetting phase. [percent]
-//     * @param T_c Air temperature immediately adjacent to fuel [Celsius]
-//     * @param H Relative humidity immediately adjacent to fuel [percent]
-//     * @return Dead fine fuel moisture [percent]
-//     */
-//    static public double calcFineDeadFuelMoisture(double m_0, double T_c, double H) {
-//
-//        // Van Wagner Eq. #2a (87-8a) equilibruim moisture curve (EMC) for drying
-//        double E_d = 0.942 * pow(H, 0.679) + 11 * exp((H - 100) / 10)
-//                + 0.18 * (21.1 - T_c) * (1 - exp(-0.115 * H));
-//
-//        // Van Wagner Eq. #2b (87-8b) equilibruim moisture curve (EMC) for wetting
-//        double E_w = 0.618 * pow(H, 0.753) + 10 * exp((H - 100) / 10)
-//                + 0.18 * (21.1 - T_c) * (1 - exp(-0.115 * H));
-//
-//        // m - fine fuel moisture 
-//        double m;
-//        if (m_0 > E_d) {
-//            // Instantaneous Drying
-//            m = E_d;
-//        } else if (m_0 < E_w) {
-//            // Instantaneous Wetting
-//            m = E_w;
-//        } else {
-//            // No change
-//            m = m_0;
-//        }
-//        return max(m, 0);
-//    }
+  /**
+   * Computes the fine dead fuel moisture using the EMC from Canadian Standard Daily Fine Fuel
+   * Moisture Code formula. The return value assumes instantaneous drying and wetting. <br/>
+   *
+   * Anderson, K., 2009, "A Comparison of Hourly Fire Fuel Moisture Code Calculations within
+   * Canada", Canadian Forest Service
+   *
+   * @param {Number} m_0 Initial fuel moisture used to determine drying or wetting phase. [percent]
+   * @param {Number} T_c Air temperature immediately adjacent to fuel [Celsius]
+   * @param {Number} H Relative humidity immediately adjacent to fuel [percent]
+   * 
+   * @return {Number} Dead fine fuel moisture [percent]
+   */
+  static calcFineDeadFuelMoisture(m_0, T_c, H) {
+
+    // Van Wagner Eq. #2a (87-8a) equilibruim moisture curve (EMC) for drying
+    const E_d = 0.942 * Math.pow(H, 0.679) + 11 * Math.exp((H - 100) / 10)
+            + 0.18 * (21.1 - T_c) * (1 - Math.exp(-0.115 * H));
+
+    // Van Wagner Eq. #2b (87-8b) equilibruim moisture curve (EMC) for wetting
+    const E_w = 0.618 * Math.pow(H, 0.753) + 10 * Math.exp((H - 100) / 10)
+            + 0.18 * (21.1 - T_c) * (1 - Math.exp(-0.115 * H));
+
+    // m - fine fuel moisture 
+    let m;
+    if (m_0 > E_d) {
+      // Instantaneous Drying
+      m = E_d;
+    } else if (m_0 < E_w) {
+      // Instantaneous Wetting
+      m = E_w;
+    } else {
+      // No change
+      m = m_0;
+    }
+    return Math.max(m, 0);
+  }
 
 }

@@ -456,3 +456,15 @@ describe('calcCanadianHourlyFineFuelMoisture', () => {
     expect(Rothermel.calcCanadianHourlyFineFuelMoisture(m_0, H, T_c, W_k)).toBeCloseTo(fm, 10);
   });
 });
+
+
+describe('calcFineDeadFuelMoisture', () => {
+  const m_0 = 20;   // initial fuel moisture
+  const T_c = 20;   // air temp C
+  const H = 50;     // RH 
+  const fm = 13.68836723429169;
+  
+  it('algorithm has not changed', () => {
+    expect(Rothermel.calcFineDeadFuelMoisture(m_0, T_c, H)).toBeCloseTo(fm, 10);
+  });
+});
