@@ -68,7 +68,6 @@ export default class Rothermel {
    * 
    * @param {Number[]} w0 An array of fuel particle loading values [lb/ft2]
    * @param {Number} height The fuel bed height [ft]
-   * 
    * @return {Number} rho_b [lbs/ft3]
    */
   static meanBulkDensity(w0, height) {
@@ -89,7 +88,6 @@ export default class Rothermel {
    *
    * @param {Number} rho_b The mean bulk density of the fuel bed [lbs/ft3].
    * @param {Number} rho_p The oven-dry fuel-particle density [lbs/ft3].
-   *
    * @return {Number} beta [dimensionless]
    */
   static meanPackingRatio(rho_b, rho_p) {
@@ -114,7 +112,6 @@ export default class Rothermel {
    * [electronic]. http://www.firewords.net
    *
    * @param {Number} sigma The characteristic SAV ratio for the fuel complex [ft2/ft3].
-   *
    * @return {Number} beta_opt [dimensionless]
    */
   static optimalPackingRatio(sigma) {
@@ -134,7 +131,6 @@ export default class Rothermel {
    *
    * @param {Number[]} sv An array of fuel particle SAV ratio values [ft2/ft3].
    * @param {Number[]} w0 An array of fuel particle loading values [lbs/ft2].
-   *
    * @return {Number} sigma [ft2/ft3]
    */
   static characteristicSAV(sv, w0) {
@@ -181,7 +177,6 @@ export default class Rothermel {
    * @param {Number} heat The low heat content [Btu/lb]
    * @param {Number} eta_M The moisture damping coefficient.
    * @param {Number} eta_s The mineral damping coefficient.
-   *
    * @return {Number} I_r [BTU/ft2/min].
    */
   static reactionIntensity(gamma, heat, eta_M, eta_s) {
@@ -210,7 +205,6 @@ export default class Rothermel {
    *
    * @param {Number} I_r The reaction intensity [Btu/ft2/min].
    * @param {Number} tau The flame residence time [min].
-   *
    * @return {NUmber} hpa [Btu/ft2]
    */
   static heatRelease(I_r, tau) {
@@ -228,7 +222,6 @@ export default class Rothermel {
    *
    * @param {Number} sigma The characteristic SAV ratio [ft2/ft3].
    * @param {Number} beta The mean packing ratio [-]
-   *
    * @return {Number} xi
    */
   static propagatingFluxRatio(sigma, beta) {
@@ -262,7 +255,6 @@ export default class Rothermel {
    * Rothermel 1972: eq. (12) and (78).
    *
    * @param {Number} Mf The fuel moisture value for an individual fuel particle [%].
-   *
    * @return {Number} Q_ig.
    */
   static heatOfPreignition(Mf) {
@@ -281,7 +273,6 @@ export default class Rothermel {
    * (epsilon).
    * @param {Number[]} sw An array of (sv * w0) weighting values for individual fuel particles (sw).
    * @param {Number} density The mean bulk density for the fuel complex (rho_b).
-   *
    * @return {NUmber} hsk [Btu/ft3]
    */
   static heatSink(preignitionHeat, effectiveHeating, sw, density) {
@@ -304,7 +295,6 @@ export default class Rothermel {
    * @param {Number} midFlameWindSpd The wind speed at mid-flame height [ft/min].
    * @param {Number} sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
    * @param {Number} beta_ratio The relative packing ratio [beta/beta_opt].
-   *
    * @return {Number} phi_w
    */
   static windFactor(midFlameWindSpd, sigma, beta_ratio) {
@@ -325,7 +315,6 @@ export default class Rothermel {
    * @param {Number} B Result from Rothermel 1972: eq. (49).
    * @param {Number} E Result from Rothermel 1972: eq. (50).
    * @param {Number} beta_ratio The relative packing ratio [beta/beta_opt].
-   *
    * @return {Number} phi_w
    */
   static windFactor2(midFlameWindSpd, C, B, E, beta_ratio) {
@@ -339,7 +328,6 @@ export default class Rothermel {
    * Rothermel 1972: eq. (48)
    *
    * @param {Number} sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
-   *
    * @return {Number} C
    */
   static windParameterC(sigma) {
@@ -353,7 +341,6 @@ export default class Rothermel {
    * Rothermel 1972: eq. (49)
    *
    * @param {Number} sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
-   *
    * @return {Number} B
    */
   static windParameterB(sigma) {
@@ -367,7 +354,6 @@ export default class Rothermel {
    * Rothermel 1972: eq. (50)
    *
    * @param {Number} sigma The characteristic SAV ratio for the fuelbed [ft2/ft3].
-   *
    * @return {Number} E
    */
   static windParameterE(sigma) {
@@ -382,7 +368,6 @@ export default class Rothermel {
    *
    * @param {Number} slopeDegrees The steepness of the slope [degrees].
    * @param {Number}bbeta The mean packing ratio.
-   *
    * @return {Number} phi_s
    */
   static slopeFactor(slopeDegrees, beta) {
@@ -400,7 +385,6 @@ export default class Rothermel {
    * @param {NUmber} phiEw The combined wind and slope factors [phiW + phiS].
    * @param {NUmber} beta_ratio beta/beta_opt.
    * @param {NUmber} sigma The characteristic SAV ratio [ft2/ft3].
-   * 
    * @return {NUmber} efw [ft/min]
    */
   static effectiveWindSpeed(phiEw, beta_ratio, sigma) {
@@ -421,7 +405,6 @@ export default class Rothermel {
    * @param {NUmber} B Result from Rothermel 1972: eq. (49).
    * @param {NUmber} E Result from Rothermel 1972: eq. (50).
    * @param {NUmber} beta_ratio
-   * 
    * @return {NUmber} efw [ft/min]
    */
   static effectiveWindSpeed2(phiEw, C, B, E, beta_ratio) {
@@ -440,7 +423,6 @@ export default class Rothermel {
    * @param {Number} windFactor The wind coefficient (phi_w).
    * @param {Number} slopeFactor The slope coefficient (phi_s).
    * @param {Number} heatSink The total heat sink (hsk) [Btu/ft3].
-   *
    * @return {Number} ros [ft/min]
    */
   static rateOfSpread(reactionIntensity, propogatingFlux, windFactor, slopeFactor, heatSink) {
@@ -459,7 +441,6 @@ export default class Rothermel {
    * @param {Number} reactionIntensity The fire reaction intensity (I_r) [BTU/ft2/min].
    * @param {Number} propogatingFlux The fire propagating flux (xi) [fraction].
    * @param {Number} heatSink The total heat sink (hsk) [Btu/ft3].
-   *
    * @return {Number} ros [ft/min]
    */
   static rateOfSpreadNoWindNoSlope(reactionIntensity, propogatingFlux, heatSink) {
@@ -479,7 +460,6 @@ export default class Rothermel {
    *
    * @param {Number} rateOfSpread The fire rate of spread (ros) [ft/min].
    * @param {Number} flameResidenceTime The fuelbed's flame residence time [min].
-   *
    * @return {Number} fzd [ft]
    */
   static flameZoneDepth(rateOfSpread, flameResidenceTime) {
@@ -498,7 +478,6 @@ export default class Rothermel {
    *
    * @param flameZoneDepth The depth of the actively flaming zone [ft].
    * @param reactionIntensity The fuelbed's fire reaction intensity (I_r) [Btu/ft2/min].
-   *
    * @return I [Btu/ft/s]
    */
   static firelineIntensity(flameZoneDepth, reactionIntensity) {
@@ -512,7 +491,6 @@ export default class Rothermel {
    * Albini 1976: eq. (17) pg. 86
    *
    * @param {Number} firelineIntensity Byram's fireline intensity (I) [Btu/ft/s].
-   *
    * @return {Number} L [ft]
    */
   static flameLength(firelineIntensity) {
@@ -527,7 +505,6 @@ export default class Rothermel {
    * fuel bed depth, using Albini and Baughman (1979) equation 9 (page 5).
    *
    * @param {Number} fuelDepth Fuel bed depth (height) [ft].
-   * 
    * @return {Number} Wind adjustment factor, waf [0..1]
    */
   static midFlameWindAdjustmentFactor(fuelDepth) {
@@ -544,7 +521,6 @@ export default class Rothermel {
    *
    * @param {Number} wndSpd20Ft Wind speed 20 feet above the vegetation [MPH]
    * @param {Number} fuelDepth Vegetation height [feet]
-   * 
    * @return {Number} Wind speed at vegetation height
    */
   static calcWindSpeedMidFlame(wndSpd20Ft, fuelDepth) {
@@ -557,7 +533,6 @@ export default class Rothermel {
    *
    * @param {Number} wndSpd20Ft Wind speed 20 feet above the vegetation [MPH]
    * @param {Number} fuelDepth Vegetation height [feet]
-   * 
    * @return {Number} Wind speed at vegetation height
    */
   static calcWindSpeedNearFuel(wndSpd20Ft, fuelDepth) {
@@ -586,7 +561,6 @@ export default class Rothermel {
    * </pre>
    * 
    * @param {Number} effectiveWind The effective wind speed of the combined wind and slope. [mph]
-   * 
    * @return {Number} The eccentricity of the ellipse
    */
   static eccentricity(effectiveWind) {
@@ -612,7 +586,6 @@ export default class Rothermel {
    * @param {Number} I radiation intensity [cal/c2 * min]
    * @param {Number} T_a temperature of air [fahrenheit]
    * @param {Number} U_h wind velocity at fuel level [mph]
-   *
    * @return {Number} T_f temperature of fuel [fahrenheit]
    */
   static calcFuelTemp(I, T_a, U_h) {
@@ -641,7 +614,6 @@ export default class Rothermel {
    * @param {Nunber} H_a relative humidity of the air [percent]
    * @param {Nunber} T_f fuel temperature [Fahrenheit]
    * @param {Nunber} T_a air temperature [Fahrenheit]
-   * 
    * @return {Nunber} H_f - relative humidity of the air next to the fuel [percent]
    */
   static calcRelativeHumidityNearFuel(H_a, T_f, T_a) {
@@ -658,7 +630,6 @@ export default class Rothermel {
    * Computes the earth-sun (center of mass) distance squared.
    *
    * @param {Number} delta solar declination [radians]
-   * 
    * @return {Nunber} r2 earth-sun distance squared
    */
   static calcEarthSunDistanceSqrd(delta) {
@@ -677,7 +648,6 @@ export default class Rothermel {
    * @param {Nunber} I_a irradiance at the forest floor perpendicular to the solar ray [cal/cm2*min]
    * @param {Nunber} r2 The earth-sun (center of mass) distance squared
    * @param {Nunber} A solar elevation angle to the sun [radians]
-   *
    * @return {Nunber} I - incident radiation on the forest floor [cal/cm2*min]
    */
   static calcSolarIrradianceOnHorzSurface(I_a, r2, A) {
@@ -699,7 +669,6 @@ export default class Rothermel {
    *
    * @param {Number} A the solar altitude angle [radians]
    * @param {Number} E the elevation at angle A [feet]
-   * 
    * @return {Number} M the optical air mass ratio
    */
   static calcOpticalAirMass(A, E) {
@@ -720,7 +689,6 @@ export default class Rothermel {
    * @param {Number} M is the optical air mass ratio
    * @param {Number} S_c cloud cover [percent]
    * @param {Number} p is the transparency coefficient
-   * 
    * @return {Number} attenuated irradiance [cal/cm2*min]
    */
   static calcAttenuatedIrradiance(M, S_c, p) {
@@ -756,7 +724,6 @@ export default class Rothermel {
    * @param {Number} A solar altitude (elevation) angle [radians]
    * @param {Number} Z solar azimuth angle (true) [radians]
    * @param {Number} I_a attenuated irradiance [cal/cm2*min]
-   * 
    * @return {Number} incident radiation intensity [cal/cm2*min]
    */
   static calcIrradianceOnASlope(alpha, beta, A, Z, I_a) {
@@ -811,7 +778,6 @@ export default class Rothermel {
    * @param {Number} H_f relative humidity immediately adjacent to fuel [percent]
    * @param {Number} W 20 foot wind speed [MPH]
    * @param {Number} R rainfall amount [inches]
-   * 
    * @return {Number} Fuel moisture percent derived from computed FFMC code [percent]
    */
   static calcCanadianStandardDailyFineFuelMoisture(m_0, T_f, H_f, W, R) {
@@ -890,7 +856,6 @@ export default class Rothermel {
    * @param {Number} H relative humidity [percent]
    * @param {Number} T_c air temperature [Celsius]
    * @param {Number} W_k 20' wind speed [KPH]
-   *
    * @return {Number} fuel moisture [percent]
    */
   static calcCanadianHourlyFineFuelMoisture(m_0, H, T_c, W_k) {
@@ -942,7 +907,6 @@ export default class Rothermel {
    * @param {Number} m_0 Initial fuel moisture used to determine drying or wetting phase. [percent]
    * @param {Number} T_c Air temperature immediately adjacent to fuel [Celsius]
    * @param {Number} H Relative humidity immediately adjacent to fuel [percent]
-   * 
    * @return {Number} Dead fine fuel moisture [percent]
    */
   static calcFineDeadFuelMoisture(m_0, T_c, H) {
@@ -968,6 +932,122 @@ export default class Rothermel {
       m = m_0;
     }
     return Math.max(m, 0);
+  }
+
+  /**
+   * Computes the solar altitude angle A, i.e., how high is the sun from the horizon.
+   *
+   * @param {Number} h hour angle from the local 6am [(360/24)*(t - 6.0)]
+   * @param {Number} phi latitude [radians]
+   * @param {Number} delta solar declination [radians]
+   * @return {Number} solar altitude angle [radians]
+   */
+  static calcSolarAltitudeAngle(h, phi, delta) {
+    // Rothermel et al, 1986, page 10
+    // Equation #4
+    // The solar altitude angle A, is given by
+    //  sin A = sin h * cos delta * cos phi + sin delta * sin phi
+    // where:
+    //  A =   solar altitude angle
+    const sinA = (Math.sin(h) * Math.cos(delta) * Math.cos(phi)) + (Math.sin(delta) * Math.sin(phi));
+    return Math.asin(sinA);
+  }
+
+  static calcHourAngle(A, phi, delta) {
+    // This equation computes the hour angle from the solar altitude angle
+    const sinh = (Math.sin(A) - Math.sin(phi) * Math.sin(delta)) / (Math.cos(phi) * Math.cos(delta));
+    return Math.asin(sinh);
+  }
+
+  /**
+   * Computes the solar azimuth angle, Z, i.e., where is sun relative to East. At 0600 local time
+   * the solar azimuth is 0 degrees; at 1800 it is 180 degrees.
+   *
+   * @param {Number} h hour angle from the local 6am [(360/24)*(t - 6.0)] [radians]
+   * @param {Number} phi latitude [radians]
+   * @param {Number} delta solar declination [radians]
+   * @param {Number} A solar altitude angle [radians]
+   * @return {Number} solar azimuth angle 0 <= Z <= 2PI relative to East [radians]
+   */
+  static calcSolarAzimuthAngle(h, phi, delta, A) {
+    // Rothermel et al, 1986, page 11
+    // Equation #5 and #6. The solar azimuth angle Z, is given by simple ratios of equations 5 and 6.
+
+    // Eq #5
+    let tanZ = ((Math.sin(h) * Math.cos(delta) * Math.sin(phi)) - (Math.sin(delta) * Math.cos(phi))) / (Math.cos(h) * Math.cos(delta))
+    // Eq #6
+    const cosZ = Math.cos(h) * (Math.cos(delta) / Math.cos(A))
+
+    // Compare cos and tan values to determine which inverse function to use
+    // and which  quadrant of the circle to assign the value to (relative
+    // to East). But first, invert the tan value when in the southern hemisphere to
+    // sync it up with the cos value which is not influenced by the sign of phi --
+    // A angle used in cosZ is is always positive at noon regardless of hemisphere.
+    let Z = 0;
+    if (phi < 0) {
+      tanZ = -tanZ;
+    }
+    if (tanZ >= 0 && cosZ >= 0) {
+      Z = Math.atan(tanZ);         // late morning (east to south)
+    } else if (tanZ < 0 && cosZ < 0) {
+      Z = Math.acos(cosZ);         // early afternnon (south to west)
+    } else if (tanZ >= 0 && cosZ < 0) {
+      Z = Math.atan(tanZ) + Math.PI;    // night (west to north)
+    } else {
+      Z = 2 * Math.PI - Math.acos(cosZ);// early morning (north to east)
+    }
+    return Z;
+  }
+
+  /**
+   * Computes hour angle from local 6am
+   *
+   * @param {Number} t local time in 24hr format
+   * @return {Number} hour angle 0600=0 deg; 1200=90 deg; 1800=180 deg; 0000=270 deg; [radians]
+   */
+  static calcLocalHourAngle(t) {
+    // deg per hour = (360.0 / 24.0) = 15
+    const h = 15 * ((t >= 6.0 ? t : t + 24) - 6.0);
+    return h * TO_RADIANS;
+  }
+
+  /**
+   * Computes the solar declination angle for a given day of the year. Solar Declination angle is
+   * the angle between a plane perpendicular to incoming solar radiation and the rotational axis
+   * of the earth. It varies form +23.5 degress on June 21/22 and -23.5 degrees on December 21/22.
+   *
+   * Declination is analogous to latitude on Earth's surface, and measures an angular displacement
+   * north or south from the projection of Earth's equator on the celestial sphere to the location
+   * of a celestial body.
+   *
+   * @param {Number} NJ the julian date (day of the year)
+   * @return {Number} the solar declination angle [radians]
+   */
+  static calcSolarDeclinationAngle(NJ) {
+    // Rothermel et al, 1986, page 11
+    // Equation #8
+    // 0.9863 = 360 degrees /365 days
+    const delta = 23.5 * Math.sin((0.9863 * TO_RADIANS) * (284 + NJ))
+    return (delta * TO_RADIANS)
+  }
+
+  /**
+   * Computes the julian date (day of the year)
+   *
+   * @param {Number} Mo [1..12]
+   * @param {Number} Dy [1..31]
+   * @param {Number} Yr Four digit year
+   * @return {Number} NJ - the day of the year
+   */
+  static calcJulianDate(Mo, Dy, Yr) {
+    // Rothermel et al, 1986, page 11
+    // Equation #8
+
+    // epsilon is the Julian date correction for Feburary and leap years.
+    const epsilon = (Mo == 1) ? 2 : (Mo == 2) ? 3 : ((Yr % 4) == 0 && Mo > 2) ? 1 : 0;
+    // Compute Julian date
+    const NJ = Math.round(31 * (Mo - 1) + Dy - (0.4 * Mo) - 1.8 + epsilon);
+    return NJ;
   }
 
 }
