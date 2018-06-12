@@ -339,6 +339,74 @@ describe('calcWindSpeedNearFuel', () => {
   it('algorithm has not changed', () => {
     expect(Rothermel.calcWindSpeedNearFuel(wndSpd20Ft, fuelDepth)).toBeCloseTo(U_h, 10);
   });
+
+  it('1 mph @ 1ft', () => {
+    // Test 1 mph winds against tabulated results
+    const U_20 = 1.0;      // 20 foot winds above fuel
+    const h = 1.0;         // vegetation height [feet]
+    const U_h = 0.2 * U_20;// from text
+    expect(Rothermel.calcWindSpeedNearFuel(U_20, h)).toBeCloseTo(U_h, 2);
+  });
+  it('1 mph @ 6ft', () => {
+    // Test 1 mph winds against tabulated results
+    const U_20 = 1.0;      // 20 foot winds above fuel
+    const h = 6.0;         // vegetation height [feet]
+    const U_h = 0.3 * U_20;// from text
+    expect(Rothermel.calcWindSpeedNearFuel(U_20, h)).toBeCloseTo(U_h, 2);
+  });
+  it('1 mph @ 0.5ft', () => {
+    // Test 1 mph winds against tabulated results
+    const U_20 = 1.0;      // 20 foot winds above fuel
+    const h = 0.5;         // vegetation height [feet]
+    const U_h = 0.17 * U_20;// from text
+    expect(Rothermel.calcWindSpeedNearFuel(U_20, h)).toBeCloseTo(U_h, 2);
+  });
+  it('20 mph @ 1ft', () => {
+    // Test 1 mph winds against tabulated results
+    const U_20 = 20.0;     // 20 foot winds above fuel
+    const h = 1.0;         // vegetation height [feet]
+    const U_h = 0.2 * U_20; // from text
+    expect(Rothermel.calcWindSpeedNearFuel(U_20, h)).toBeCloseTo(U_h, 1);
+  });
+  it('20 mph @ 6ft', () => {
+    // Test 1 mph winds against tabulated results
+    const U_20 = 20;       // 20 foot winds above fuel
+    const h = 6.0;         // vegetation height [feet]
+    const U_h = 0.3 * U_20;// from text
+    expect(Rothermel.calcWindSpeedNearFuel(U_20, h)).toBeCloseTo(U_h, 1);
+  });
+  it('20 mph @ 0.5ft', () => {
+    // Test 1 mph winds against tabulated results
+    const U_20 = 20;       // 20 foot winds above fuel
+    const h = 0.5;         // vegetation height [feet]
+    const U_h = 0.17 * U_20;// from text
+    expect(Rothermel.calcWindSpeedNearFuel(U_20, h)).toBeCloseTo(U_h, 1);
+  });
+  
+            
+//            h = 0.1;                // vegetation height [feet]
+//            expResult = 0.0006 * U_20;// from text
+//            result = calcWindSpeedAtFuelLevel(U_20, h);
+//            // This assert fails... the returned value is 0.136 vs .0006
+//            //assertEquals(expResult, result, 0.05);
+//
+//            // Test 20 mph winds
+//            U_20 = 20.0;     // 20 foot winds above fuel
+//
+//            h = 1.0;         // vegetation height [feet]
+//            expResult = 0.2 * U_20; // from text
+//            result = calcWindSpeedAtFuelLevel(U_20, h);
+//            assertEquals(expResult, result, 0.1);
+//            
+//            h = 6.0;                // vegetation height [feet]
+//            expResult = 0.3 * U_20; // from text
+//            result = calcWindSpeedAtFuelLevel(U_20, h);
+//            assertEquals(expResult, result, 0.1);
+//            
+//            h = 0.5;                // vegetation height [feet]
+//            expResult = 0.17 * U_20;// from text
+//            result = calcWindSpeedAtFuelLevel(U_20, h);
+//            assertEquals(expResult, result, 0.1);
 });
 
 
@@ -361,17 +429,44 @@ describe('calcFuelTemp', () => {
   it('algorithm has not changed', () => {
     expect(Rothermel.calcFuelTemp(I, T_a, U_h)).toBeCloseTo(T_f, 10);
   });
+  it('computed', () => {
+    const NJ = Rothermel.calcJulianDate(6, 22, 2009);
+    const h = Rothermel.calcLocalHourAngle(12.0);    // local time
+    const phi = toRadians(34.2);           // latitude
+    const delta = Rothermel.calcSolarDeclinationAngle(NJ);
+    const A = Rothermel.calcSolarAltitudeAngle(h, phi, delta);
+    const Z = Rothermel.calcSolarAzimuthAngle(h, phi, delta, A);
+    const E = 0;                          // sea level
+    const M = Rothermel.calcOpticalAirMass(A, E);
+    const S_c = 0;                        // cloud cover percent
+    const p = 0.7;                        // atmospheric transparency
+    const I_a = Rothermel.calcAttenuatedIrradiance(M, S_c, p);
+    const r2 = Rothermel.calcEarthSunDistanceSqrd(delta);
+    const I = Rothermel.calcSolarIrradianceOnHorzSurface(I_a, r2, A);
+    const T_a = 70.0;                  // [farenheit]
+    const U_h = 0.5;                   // windspeed at fuel level [mph]
+    const T_f = 104;
+    expect(Rothermel.calcFuelTemp(I, T_a, U_h)).toBeCloseTo(T_f, 1);
+  });
 });
 
 
 describe('calcRelativeHumidityNearFuel', () => {
-  const H_a = 50; // %
-  const T_a = 67; // F
-  const T_f = 89; // F
-  const H_f = 24.19202432339955; // %
 
   it('algorithm has not changed', () => {
+    const H_a = 50; // %
+    const T_a = 67; // F
+    const T_f = 89; // F
+    const H_f = 24.19202432339955; // %
     expect(Rothermel.calcRelativeHumidityNearFuel(H_a, T_f, T_a)).toBeCloseTo(H_f, 10);
+  });
+  
+  it('RH 30%', () => {
+    const H_a = 30.0;
+    const T_f = 104.0;
+    const T_a = 70.0;
+    const H_f = 10.0;
+    expect(Rothermel.calcRelativeHumidityNearFuel(H_a, T_f, T_a)).toBeCloseTo(H_f, 0);
   });
 });
 
@@ -469,15 +564,45 @@ describe('calcIrradianceOnASlope', () => {
 
 
 describe('calcCanadianStandardDailyFineFuelMoisture', () => {
-  const m_0 = 20;   // initial moisture at noon
-  const T_f = 67;   // air temp next to fuel
-  const H_f = 50;   // RH next to fuel
-  const W = 10;     // 20ft winds mph
-  const R = 0;      // rainfall
-  const fm = 15.550628477777991;
 
   it('algorithm has not changed', () => {
+    const m_0 = 20;   // initial moisture at noon
+    const T_f = 67;   // air temp next to fuel
+    const H_f = 50;   // RH next to fuel
+    const W = 10;     // 20ft winds mph
+    const R = 0;      // rainfall
+    const fm = 15.550628477777991;
     expect(Rothermel.calcCanadianStandardDailyFineFuelMoisture(m_0, T_f, H_f, W, R)).toBeCloseTo(fm, 10);
+  });
+
+
+  it('Texas Grasses (Clark Data)', () => {
+    // values from Texas Grasses (Clark Data) Measured Data
+    // 4/4 Noon time conditions
+    const m_0 = 3.2;       // moisture @ noon[percent]
+    const T_a = 85;        // air temp [farenheit]
+    const H_a = 16;        // humidity [percent]
+    const W = 14.2;        // wind [mph]
+    const R = 0;           // rain [inches]
+    const S_c = 0;         // sky cover [percent]
+    const h_v = 1;         // vegetation height [feet]
+    const E = 1000;        // elevation (a guess) [feet]
+    const p = 0.7;         // atmospheric transparency
+    const phi = toRadians(30);     // ~latitude in texas
+    // Compute afternoon fuel moisture
+    const t = 15.6;        // local time
+    const delta = Rothermel.calcSolarDeclinationAngle(Rothermel.calcJulianDate(4, 15, 2009));
+    const h = Rothermel.calcLocalHourAngle(t);   // local time
+    const A = Rothermel.calcSolarAltitudeAngle(h, phi, delta);
+    const M = Rothermel.calcOpticalAirMass(A, E);
+    const I_a = Rothermel.calcAttenuatedIrradiance(M, S_c, p);
+    const r2 = Rothermel.calcEarthSunDistanceSqrd(toRadians(delta));
+    const I = Rothermel.calcSolarIrradianceOnHorzSurface(I_a, r2, A);
+    const U_h = Rothermel.calcWindSpeedNearFuel(W, h_v);
+    const T_f = Rothermel.calcFuelTemp(I, T_a, U_h);
+    const H_f = Rothermel.calcRelativeHumidityNearFuel(H_a, T_f, T_a);
+    const fm = 3.2; // 4/15 @ 1500
+    expect(Rothermel.calcCanadianStandardDailyFineFuelMoisture(m_0, T_f, H_f, W, R)).toBeCloseTo(fm, 2);
   });
 });
 
